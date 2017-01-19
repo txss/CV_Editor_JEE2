@@ -1,16 +1,31 @@
 package fr.amu.univ.cveditor.bean;
 
-public class Personne {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-	private String name;
-	private String firstName;
+@Entity
+@Table(name = "PERSONS")
+public class Person {
+
+	@Id
 	private String email;
+
+	@Column(name = "name")
+	private String name;
+	@Column(name = "firstname")
+	private String firstName;
+	@Column(name = "website")
 	private String webSite;
+	@Column(name = "birthdate")
 	private String birthdate;
+	@Column(name = "password")
 	private String password;
 	
+	
 	// default constructor
-	public Personne() {}
+	public Person() {}
 
 	// Begin getters 
 	public String getName() {

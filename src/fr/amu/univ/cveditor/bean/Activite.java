@@ -1,6 +1,8 @@
 package fr.amu.univ.cveditor.bean;
 
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class Activite {
 
 	private int id;

@@ -2,9 +2,17 @@ package fr.amu.univ.cveditor.bean;
 
 import java.util.ArrayList;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Cv {
 
+	@Id
 	public int id;
+	
+	@ElementCollection
 	public ArrayList<Activite> activites;
 	
 	// default constructor

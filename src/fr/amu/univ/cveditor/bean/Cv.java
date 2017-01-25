@@ -37,6 +37,7 @@ public class Cv {
 		this.activites = activites;
 	}
 	
+	// methodes
 	public String toString(){
 		return 	"\nId-> " + this.id + 
 				"\nActivites-> " + this.activites;

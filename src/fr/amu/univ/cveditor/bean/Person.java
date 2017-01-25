@@ -77,6 +77,7 @@ public class Person {
 		this.password = password;
 	}
 	
+	// methodes
 	public String toString(){
 		return 	"\nEmail-> " + this.email +
 				"\nName-> " + this.name +

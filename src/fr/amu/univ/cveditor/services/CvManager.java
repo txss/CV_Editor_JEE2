@@ -29,7 +29,7 @@ public class CvManager {
 		cv.setActivites(activites);
 		
 		em.persist(cv);
-	}
+	}//createCv()
 	
 	public void saveCv(Cv cv){
 		em.persist(cv);

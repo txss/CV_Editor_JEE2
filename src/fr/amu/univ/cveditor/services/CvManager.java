@@ -3,12 +3,14 @@ package fr.amu.univ.cveditor.services;
 import java.util.ArrayList;
 
 import javax.annotation.PreDestroy;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.amu.univ.cveditor.entities.Activite;
 import fr.amu.univ.cveditor.entities.Cv;
 
+@Stateless(name="cvManager", description = "Manager d'entité pour les CV")
 public class CvManager {
 	
 	@PersistenceContext(unitName = "myMySQLBase")

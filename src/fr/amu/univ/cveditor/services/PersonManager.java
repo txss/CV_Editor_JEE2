@@ -1,7 +1,7 @@
 package fr.amu.univ.cveditor.services;
 
 import javax.annotation.PreDestroy;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -10,7 +10,7 @@ import fr.amu.univ.cveditor.utils.EmailValidator;
 import fr.amu.univ.cveditor.utils.IValidator;
 import fr.amu.univ.cveditor.utils.PswValidator;
 
-@Stateful
+@Stateless(name = "personManager", description = "Manager d'entité pour les personnes") 
 public class PersonManager {
 
 	@PersistenceContext(unitName = "myMySQLBase")

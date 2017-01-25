@@ -1,46 +1,62 @@
-package fr.amu.univ.cveditor.managers;
+package fr.amu.univ.cveditor.services;
 
-import fr.amu.univ.cveditor.bean.Cv;
+import java.util.ArrayList;
 
-public class CvEJB {
+import javax.annotation.PreDestroy;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-	private Cv curriculumVitae;
+import fr.amu.univ.cveditor.entities.Activite;
+import fr.amu.univ.cveditor.entities.Cv;
+
+public class CvManager {
 	
-	public CvEJB() {}
+	@PersistenceContext(unitName = "myMySQLBase")
+	private EntityManager em;
+	
+	@PreDestroy
+	public void close() {
+		System.out.println("CvEJB is closing...");
+	}//close()
 
-	// Begin getters
-	public Cv getCurriculumVitae() {
-		return curriculumVitae;
-	}
 
-	// Begin setters
-	public void setCurriculumVitae(Cv curriculumVitae) {
-		this.curriculumVitae = curriculumVitae;
+	/* Members Methods */
+	
+	public void createCv(int id, ArrayList<Activite> activites) {
+		
+		Cv cv = new Cv();
+		cv.setId(id);
+		cv.setActivites(activites);
+		
+		em.persist(cv);
 	}
 	
-	// Methodes
-	public boolean saveCv(Cv cv){
-		//TODO
-		return false;
-	}
-	
-	public boolean updateCv(Cv cv){
-		//TODO
-		return false;
-	}
-	
+	public void saveCv(Cv cv){
+		em.persist(cv);
+	}// saveCv()
+
+	public void updateCv(Cv cv){
+		Cv modifiedCv = em.find(Cv.class, cv.getId());
+		
+		modifiedCv.setActivites(cv.getActivites());
+	}// updateCv()
+
 	public Cv getCv(int id){
-		//TODO
-		return null;
-	}
-	
+		return em.find(Cv.class, id);
+	}// getCvById()
+
 	public Cv searchCv(Cv cv){
 		//TODO
 		return null;
-	}
-	
-	public boolean deleteCv(int id){
-		//TODO
+	}//searchCv()
+
+	public boolean removeCv(int id){
+		Cv cv = em.find(Cv.class, id);
+		if(cv != null) {
+			em.remove(cv);
+			return true;
+		}
 		return false;
-	}
-}
+	}// deleteCvById()
+
+}//CvEJB

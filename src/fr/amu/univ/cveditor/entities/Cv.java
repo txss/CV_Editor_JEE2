@@ -1,4 +1,4 @@
-package fr.amu.univ.cveditor.bean;
+package fr.amu.univ.cveditor.entities;
 
 import java.util.ArrayList;
 
@@ -15,32 +15,23 @@ public class Cv {
 	@ElementCollection
 	public ArrayList<Activite> activites;
 	
-	// default constructor
+	/* Constructor */
 	public Cv() {}
 
 	
-	// Begin getters
-	public int getId() {
-		return id;
-	}
+	/* Getters */
+	public int 					getId() 		{ return id;		}
+	public ArrayList<Activite> 	getActivites() 	{ return activites; }
 
-	public ArrayList<Activite> getActivites() {
-		return activites;
-	}
-
-	// Begin setters
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setActivites(ArrayList<Activite> activites) {
-		this.activites = activites;
-	}
+	/* Setters */
+	public void setId(int id) 								{ this.id = id; 				}
+	public void setActivites(ArrayList<Activite> activites) { this.activites = activites; 	}
 	
+	/* Members Methods */
 	public String toString(){
 		return 	"\nId-> " + this.id + 
 				"\nActivites-> " + this.activites;
-	}
+	}//toString()
 	
 
-}
+}//Cv

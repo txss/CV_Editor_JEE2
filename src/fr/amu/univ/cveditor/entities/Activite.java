@@ -1,4 +1,4 @@
-package fr.amu.univ.cveditor.bean;
+package fr.amu.univ.cveditor.entities;
 
 import javax.persistence.Embeddable;
 
@@ -12,67 +12,33 @@ public class Activite {
 	private String description;
 	private String email;
 	
-	// default constructor
+	/* Constructor */
 	public Activite() {}
 
 	
-	// Begin getters
-	public int getId() {
-		return id;
-	}
+	/* Getters */
+	public int 		getId() 			{ return id; 			}
+	public String 	getYears() 			{ return years; 		}
+	public String 	getNature() 		{ return nature; 		}
+	public String 	getTitle() 			{ return title; 		}
+	public String 	getDescription() 	{ return description; 	}
+	public String 	getEmail() 			{ return email;			}
 
-	public String getYears() {
-		return years;
-	}
+	/* Setters */
+	public void setId(int id) 						{ this.id = id; 					}
+	public void setYears(String years) 				{ this.years = years; 				}
+	public void setNature(String nature) 			{ this.nature = nature; 			}
+	public void setTitle(String title) 				{ this.title = title; 				}
+	public void setDescription(String description) 	{ this.description = description; 	}
+	public void setEmail(String email) 				{ this.email = email; 				}
 
-	public String getNature() {
-		return nature;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	// Begin setters
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setYears(String years) {
-		this.years = years;
-	}
-
-	public void setNature(String nature) {
-		this.nature = nature;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	
+	/* Members Methods */
 	public String toString(){
 		return 	"\nId-> " + this.id + 
 				"\nTitle-> " + this.title +
 				"\nNature-> " + this.nature +
-				"\nAnnées-> " + this.years +
+				"\nAnnï¿½es-> " + this.years +
 				"\nEmail-> " + this.email;
-	}
+	}//toString()
 	
-}
+}//Activite

@@ -1,6 +1,7 @@
 package fr.amu.univ.cveditor.services;
 
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +13,9 @@ import fr.amu.univ.cveditor.utils.PswValidator;
 
 @Stateless(name = "personManager", description = "Manager d'entité pour les personnes") 
 public class PersonManager {
+	
+	@EJB
+	private AuthenticateManager authManager;
 
 	@PersistenceContext(unitName = "myMySQLBase")
 	private EntityManager em;
@@ -24,29 +28,27 @@ public class PersonManager {
 
 	/* Members Methods */
 
-	public void createPerson(String email, String firstName, String name, 
-								String birthdate, String webSite, String password) throws BadPerson {
+	public void createPerson(Person p) throws BadPerson {
 
 		Person person = new Person();
-		person.setEmail(email);
-		person.setFirstName(firstName);
-		person.setName(name);
-		person.setBirthdate(birthdate);
-		person.setWebSite(webSite);
-		person.setPassword(password);
+		person.setEmail(p.getEmail());
+		person.setFirstName(p.getFirstName());
+		person.setName(p.getName());
+		person.setBirthdate(p.getBirthdate());
+		person.setWebSite(p.getWebSite());
+		person.setPassword(p.getPassword());
 		
 		em.persist(person);
 
 		IValidator valid = new EmailValidator();
-		if(valid.validate(email)) {
+		if(valid.validate(p.getEmail())) {
 			throw new BadPerson("Not a valid email address");
 		}
 		
 		valid = new PswValidator();
-		if(valid.validate(password)) {
+		if(valid.validate(p.getPassword())) {
 			throw new BadPerson("Not a valid password");
 		}
-		
 		
 	}//createPerson()
 

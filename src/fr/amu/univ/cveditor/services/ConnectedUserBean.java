@@ -18,6 +18,7 @@ public class ConnectedUserBean implements ConnectedUser {
 		//Vérification de l'utilisateur et de son mot de passe
 		if(p != null && p.getPassword().equals(pwd)) {
 			System.out.println("Login user " + this);
+			//TODO Stockage des infos de l'utilisateur ?
 			return true;
 		}
 		return false;

@@ -12,6 +12,7 @@ public class Cv {
 	@Id
 	public int id;
 	
+
 	@ElementCollection
 	public ArrayList<Activite> activites;
 	

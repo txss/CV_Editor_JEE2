@@ -1,17 +1,33 @@
 package fr.amu.univ.cveditor.services;
 
-import javax.ejb.Remove;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-@Stateful(name = "authManager")
+import fr.amu.univ.cveditor.entities.Person;
+
+@Stateless(name = "authManager")
 public class AuthenticateManager {
+	
+	@PersistenceContext(unitName = "myMySQLBase")
+	private EntityManager em;
 
 	public boolean login(String login, String pwd) {
+		Person p = em.find(Person.class, login);
+		
+		if(p != null)
+			if (p.getPassword().equals(pwd)) {
+				System.out.println("Connected user : \n "
+						+ "name : " + p.getFirstName() + " " + p.getName());
+				return true;
+			}
 		return false;
 	}//login()
 	
-	@Remove
-	public void logout() {
 	
+	public void logout(String login) {
+		Person p = em.find(Person.class, login);
+		System.out.println("Disconnected user : \n "
+				+ "name : " + p.getFirstName() + " " + p.getName());
 	}//logout()
 }//AuthenticateManager

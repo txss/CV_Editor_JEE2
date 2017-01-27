@@ -3,6 +3,7 @@ package fr.amu.univ.cveditor.entities;
 import java.util.ArrayList;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,6 +13,7 @@ public class Cv {
 	@Id
 	public int id;
 	
+	@Embedded
 	@ElementCollection
 	public ArrayList<Activite> activites;
 	

@@ -1,39 +1,59 @@
 package fr.amu.univ.cveditor.services;
 
-import java.util.ArrayList;
-
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.ejb.Remove;
 import javax.ejb.Stateless;
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import fr.amu.univ.cveditor.entities.Activite;
 import fr.amu.univ.cveditor.entities.Cv;
+import fr.amu.univ.cveditor.entities.Person;
 
 @Stateless(name="cvManager", description = "Manager d'entité pour les CV")
 public class CvManager {
 	
-	@PersistenceContext(unitName = "myMySQLBase")
+	private Person p;
+	private boolean isAuth = false;
+	
+	@EJB
+	private AuthenticateManager authManager;
+	
+	@PersistenceContext(unitName = "myPGSQLBase")
 	private EntityManager em;
 	
-	@PreDestroy
+	@PostConstruct
+	public void init() {
+		if(!isAuth)
+			isAuth = authManager.login(p.getEmail(), p.getPassword());
+	}//init()
+	
+	@Remove
 	public void close() {
-		System.out.println("CvEJB is closing...");
+		authManager.logout(p.getEmail());
 	}//close()
 
+	
+	/* Interceptor */
+	@AroundInvoke
+	public Object interceptor(InvocationContext context) throws Exception {
+		Object obj = null;
+		try {
+			if(isAuth)
+				obj = context.proceed();
+		}
+		catch (Exception e) {
+			
+		}
+		return obj;
+	}//interceptor()
 
 	/* Members Methods */
 	
-	public void createCv(int id, ArrayList<Activite> activites) {
-		
-		Cv cv = new Cv();
-		cv.setId(id);
-		cv.setActivites(activites);
-		
-		em.persist(cv);
-	}//createCv()
 	
-	public void saveCv(Cv cv){
+	public void createCv(Cv cv){
 		em.persist(cv);
 	}// saveCv()
 

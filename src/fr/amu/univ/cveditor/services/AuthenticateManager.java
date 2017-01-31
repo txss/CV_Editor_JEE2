@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 
 import fr.amu.univ.cveditor.entities.Person;
 
-@Stateless(name = "authManager")
+@Stateless(name = "authManager", description="Manager d'authentification utilisateur")
 public class AuthenticateManager {
 	
 	@PersistenceContext(unitName = "myMySQLBase")

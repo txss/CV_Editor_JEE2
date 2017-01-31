@@ -9,7 +9,7 @@ import fr.amu.univ.cveditor.entities.Person;
 @Stateless(name = "authManager", description="Manager d'authentification utilisateur")
 public class AuthenticateManager {
 	
-	@PersistenceContext(unitName = "myMySQLBase")
+	@PersistenceContext(unitName = "myPGSQLBase")
 	private EntityManager em;
 
 	public boolean login(String login, String pwd) {

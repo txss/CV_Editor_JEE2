@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.amu.univ.cveditor.entities.Person;
+import fr.amu.univ.cveditor.exceptions.BadPerson;
+import fr.amu.univ.cveditor.exceptions.NotAuthenticate;
 import fr.amu.univ.cveditor.utils.EmailValidator;
 import fr.amu.univ.cveditor.utils.IValidator;
 import fr.amu.univ.cveditor.utils.PswValidator;
@@ -40,7 +42,7 @@ public class PersonManager {
 
 	/* Interceptor */
 	@AroundInvoke
-	public Object interceptor(InvocationContext context) throws Exception {
+	public Object interceptor(InvocationContext context) throws NotAuthenticate {
 		Object obj = null;
 		try {
 			if(isAuth)
@@ -68,16 +70,16 @@ public class PersonManager {
 
 	}//createPerson()
 
-	public void updatePerson(Person person) {
+	public void updatePerson(Person p) {
 		Person modifiedPerson;
 
-		modifiedPerson = em.find(Person.class, person.getEmail());
+		modifiedPerson = em.find(Person.class, p.getEmail());
 
-		modifiedPerson.setName(person.getName());
-		modifiedPerson.setFirstName(person.getFirstName());
-		modifiedPerson.setBirthdate(person.getBirthdate());
-		modifiedPerson.setWebSite(person.getWebSite());
-		modifiedPerson.setPassword(person.getPassword());
+		modifiedPerson.setName(p.getName());
+		modifiedPerson.setFirstName(p.getFirstName());
+		modifiedPerson.setBirthdate(p.getBirthdate());
+		modifiedPerson.setWebSite(p.getWebSite());
+		modifiedPerson.setPassword(p.getPassword());
 	}//updatePerson()
 
 	public Person getPerson(String email) {

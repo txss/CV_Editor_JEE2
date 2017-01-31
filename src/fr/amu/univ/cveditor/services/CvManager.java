@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 
 import fr.amu.univ.cveditor.entities.Cv;
 import fr.amu.univ.cveditor.entities.Person;
+import fr.amu.univ.cveditor.exceptions.NotAuthenticate;
 
 @Stateless(name="cvManager", description = "Manager d'entité pour les CV")
 public class CvManager {
@@ -38,7 +39,7 @@ public class CvManager {
 	
 	/* Interceptor */
 	@AroundInvoke
-	public Object interceptor(InvocationContext context) throws Exception {
+	public Object interceptor(InvocationContext context) throws NotAuthenticate {
 		Object obj = null;
 		try {
 			if(isAuth)

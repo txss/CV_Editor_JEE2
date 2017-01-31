@@ -1,4 +1,4 @@
-package fr.amu.univ.cveditor.services;
+package fr.amu.univ.cveditor.exceptions;
 
 import javax.ejb.ApplicationException;
 

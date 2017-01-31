@@ -1,7 +1,8 @@
 package fr.amu.univ.cveditor.services;
 
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
@@ -9,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.amu.univ.cveditor.entities.Person;
+import fr.amu.univ.cveditor.exceptions.BadPerson;
+import fr.amu.univ.cveditor.exceptions.NotAuthenticate;
 import fr.amu.univ.cveditor.utils.EmailValidator;
 import fr.amu.univ.cveditor.utils.IValidator;
 import fr.amu.univ.cveditor.utils.PswValidator;
@@ -16,43 +19,44 @@ import fr.amu.univ.cveditor.utils.PswValidator;
 @Stateful(name = "personManager", description = "Manager d'entité pour les personnes") 
 public class PersonManager {
 
+	private Person p;
 	private boolean isAuth = false;
 
 	@EJB
 	private AuthenticateManager authManager;
 
-	@PersistenceContext(unitName = "myMySQLBase")
+	@PersistenceContext(unitName = "myPGSQLBase")
 	private EntityManager em;
+	
+	@PostConstruct
+	public void init() {
+		if(!isAuth)
+			isAuth = authManager.login(p.getEmail(), p.getPassword());
+	}//init()
 
-	@PreDestroy
+	@Remove
 	public void close() {
-		System.out.println("PersonEJB is closing...");
+		authManager.logout(p.getEmail());
 	}//close()
 
 
 	/* Interceptor */
 	@AroundInvoke
-	public Object interceptor(InvocationContext context) throws Exception {
-		String login = context.getMethod().getName();
-		System.err.println("appel de " + login);
-		for (Object param : context.getParameters()) {
-			System.err.println("param = " + param.toString());
+	public Object interceptor(InvocationContext context) throws NotAuthenticate {
+		Object obj = null;
+		try {
+			if(isAuth)
+				obj = context.proceed();
 		}
-		return context.proceed();
+		catch (Exception e) {
+			
+		}
+		return obj;
 	}//interceptor()
 
 	/* Members Methods */
 	public void createPerson(Person p) throws BadPerson {
-
-		Person person = new Person();
-		person.setEmail(p.getEmail());
-		person.setFirstName(p.getFirstName());
-		person.setName(p.getName());
-		person.setBirthdate(p.getBirthdate());
-		person.setWebSite(p.getWebSite());
-		person.setPassword(p.getPassword());
-
-		em.persist(person);
+		em.persist(p);
 
 		IValidator valid = new EmailValidator();
 		if(valid.validate(p.getEmail())) {
@@ -66,20 +70,16 @@ public class PersonManager {
 
 	}//createPerson()
 
-	public void savePerson(Person person) {
-		em.persist(person);
-	}//savePerson()
-
-	public void updatePerson(Person person) {
+	public void updatePerson(Person p) {
 		Person modifiedPerson;
 
-		modifiedPerson = em.find(Person.class, person.getEmail());
+		modifiedPerson = em.find(Person.class, p.getEmail());
 
-		modifiedPerson.setName(person.getName());
-		modifiedPerson.setFirstName(person.getFirstName());
-		modifiedPerson.setBirthdate(person.getBirthdate());
-		modifiedPerson.setWebSite(person.getWebSite());
-		modifiedPerson.setPassword(person.getPassword());
+		modifiedPerson.setName(p.getName());
+		modifiedPerson.setFirstName(p.getFirstName());
+		modifiedPerson.setBirthdate(p.getBirthdate());
+		modifiedPerson.setWebSite(p.getWebSite());
+		modifiedPerson.setPassword(p.getPassword());
 	}//updatePerson()
 
 	public Person getPerson(String email) {

@@ -14,23 +14,40 @@ import fr.amu.univ.cveditor.services.CvManager;
 @SessionScoped
 public class CvController {
 	
+	private Cv cv;
+	private Navigation nav;
+	
 	@EJB
 	private CvManager cvm;
 	
-	public List<Cv> getAllCv() {
+	public List<Cv> getAll() {
 		return cvm.listAll();
 	}//getAllPerson()
 	
-	public Cv getCv(Integer id) {
-		return cvm.getCv(id);
+	public Cv getCv() {
+		return this.cv;
 	}//getPerson()
 	
-	public void setCv(Cv cv) throws BadPerson {
-		cvm.createCv(cv);
+	public String show(Integer id) {
+		cv = cvm.find(id);
+		return nav.showCV();
+	}//show()
+	
+	public void storeCv(Cv cv) throws BadPerson {
+		cvm.create(cv);
 	}//setPerson()
 	
 	public void updateCv(Cv cv){
-		cvm.updateCv(cv);
+		cvm.update(cv);
 	}//updatePerson()
+	
+	public String newCv() {
+		cv = new Cv();
+		return nav.editCv();
+	}//newCv()
+	
+	public String editCv() {
+		return nav.editCv();
+	}//editCv()
 
 }//CvController

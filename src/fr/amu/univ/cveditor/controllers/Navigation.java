@@ -17,4 +17,12 @@ public class Navigation {
     	return "myAccount";
     }//account()
 
+	public String showCV() {
+		return "showCV";
+	}//showCV()
+
+	public String editCv() {
+		return "editCV";
+	}//editCv()
+
 }//Navigation

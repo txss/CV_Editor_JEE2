@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Cvs")
 public class Cv {
 
 	@Id
-	public int id;
+	private int id;
 	
 
 	@ElementCollection

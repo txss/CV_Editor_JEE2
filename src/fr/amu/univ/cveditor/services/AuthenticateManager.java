@@ -1,5 +1,6 @@
 package fr.amu.univ.cveditor.services;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,6 +10,9 @@ import fr.amu.univ.cveditor.entities.Person;
 @Stateless(name = "authManager", description="Manager d'authentification utilisateur")
 public class AuthenticateManager {
 	
+	@EJB
+	private ConnectedUserManager um;
+	
 	@PersistenceContext(unitName = "myPGSQLBase")
 	private EntityManager em;
 
@@ -17,17 +21,19 @@ public class AuthenticateManager {
 		
 		if(p != null)
 			if (p.getPassword().equals(pwd)) {
-				System.out.println("Connected user : \n "
-						+ "name : " + p.getFirstName() + " " + p.getName());
+				um.setUser(p);
 				return true;
 			}
 		return false;
 	}//login()
 	
 	
-	public void logout(String login) {
-		Person p = em.find(Person.class, login);
-		System.out.println("Disconnected user : \n "
-				+ "name : " + p.getFirstName() + " " + p.getName());
+	public boolean logout(String login) {
+		if(um.getUser().getEmail().equals(login)) {
+			um.close();
+			return true;
+		}
+		return false;
 	}//logout()
+	
 }//AuthenticateManager

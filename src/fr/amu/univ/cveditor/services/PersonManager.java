@@ -1,5 +1,7 @@
 package fr.amu.univ.cveditor.services;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Remove;
@@ -11,32 +13,29 @@ import javax.persistence.PersistenceContext;
 
 import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.exceptions.BadPerson;
-import fr.amu.univ.cveditor.exceptions.NotAuthenticate;
 import fr.amu.univ.cveditor.utils.EmailValidator;
 import fr.amu.univ.cveditor.utils.IValidator;
 import fr.amu.univ.cveditor.utils.PswValidator;
 
-@Stateful(name = "personManager", description = "Manager d'entité pour les personnes") 
+@Stateful(name = "personManager", description = "Manager d'entités pour les personnes") 
 public class PersonManager {
 
-	private Person p;
 	private boolean isAuth = false;
 
 	@EJB
-	private AuthenticateManager authManager;
+	private ConnectedUserManager um;
 
 	@PersistenceContext(unitName = "myPGSQLBase")
 	private EntityManager em;
-	
+
 	@PostConstruct
 	public void init() {
-		if(!isAuth)
-			isAuth = authManager.login(p.getEmail(), p.getPassword());
+		if(um.getUser() != null) isAuth = true;
 	}//init()
 
 	@Remove
 	public void close() {
-		authManager.logout(p.getEmail());
+
 	}//close()
 
 
@@ -44,17 +43,17 @@ public class PersonManager {
 	@AroundInvoke
 	public Object interceptor(InvocationContext context) throws Exception {
 		Object obj = null;
-		try {
-			if(isAuth)
-				obj = context.proceed();
-		}
-		catch (Exception e) {
-			
-		}
+
+		if(isAuth)
+			obj = context.proceed();
 		return obj;
 	}//interceptor()
 
 	/* Members Methods */
+	public List<Person> listAll() {
+		return em.createQuery("SELECT * FROM \"PERSONS\"", Person.class).getResultList();
+	}//getAll()
+
 	public void createPerson(Person p) throws BadPerson {
 		em.persist(p);
 
@@ -86,9 +85,8 @@ public class PersonManager {
 		return em.find(Person.class, email);
 	}//getPerson()
 
-	public Person searchPerson(Person person) {
-		//TODO
-		return null;
+	public Person searchPerson(Person p) {
+		return em.find(Person.class, p.getEmail());
 	}//searchPerson()
 
 	public boolean removePerson(String email) {

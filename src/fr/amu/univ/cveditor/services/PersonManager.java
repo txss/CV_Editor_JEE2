@@ -42,7 +42,7 @@ public class PersonManager {
 
 	/* Interceptor */
 	@AroundInvoke
-	public Object interceptor(InvocationContext context) throws NotAuthenticate {
+	public Object interceptor(InvocationContext context) throws Exception {
 		Object obj = null;
 		try {
 			if(isAuth)

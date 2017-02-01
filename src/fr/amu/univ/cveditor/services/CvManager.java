@@ -51,8 +51,8 @@ public class CvManager {
 		return obj;
 	}//interceptor()
 
-	/* Members Methods */
 	
+	/* Members Methods */
 	
 	public void createCv(Cv cv){
 		em.persist(cv);

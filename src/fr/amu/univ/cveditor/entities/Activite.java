@@ -1,15 +1,24 @@
 package fr.amu.univ.cveditor.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Table;
 
 @Embeddable
+@Table(name = "ACTIVITE")
 public class Activite {
 
+	@Column(name = "id")
 	private int id;
+	@Column(name = "years")
 	private String years;
+	@Column(name = "nature")
 	private String nature;
+	@Column(name = "title")
 	private String title;
+	@Column(name = "description")
 	private String description;
+	@Column(name = "email")
 	private String email;
 	
 	/* Constructor */
@@ -37,7 +46,7 @@ public class Activite {
 		return 	"\nId-> " + this.id + 
 				"\nTitle-> " + this.title +
 				"\nNature-> " + this.nature +
-				"\nAnn�es-> " + this.years +
+				"\nAnnees-> " + this.years +
 				"\nEmail-> " + this.email;
 	}//toString()
 	

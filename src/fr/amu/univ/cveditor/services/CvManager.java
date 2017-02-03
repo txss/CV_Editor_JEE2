@@ -44,25 +44,25 @@ public class CvManager {
 	/* Members Methods */
 	public List<Cv> listAll() {
 		return em.createQuery("SELECT * FROM \"Cvs\"", Cv.class).getResultList();
-	}//getAll()
+	}//listAll()
 
 	public void create(Cv cv) {
 		em.persist(cv);
-	}//saveCv()
+	}//create()
 
 	public void update(Cv cv) {
 		Cv modifiedCv = em.find(Cv.class, cv.getId());
 
 		modifiedCv.setActivites(cv.getActivites());
-	}//updateCv()
+	}//update()
 
 	public Cv find(int id) {
 		return em.find(Cv.class, id);
-	}//getCvById()
+	}//find()
 
 	public Cv search(Cv cv) {
 		return em.find(Cv.class, cv.getId());
-	}//searchCv()
+	}//search()
 
 	public boolean remove(int id) {
 		Cv cv = em.find(Cv.class, id);
@@ -71,6 +71,6 @@ public class CvManager {
 			return true;
 		}
 		return false;
-	}//removeCV()
+	}//remove()
 
 }//CvManager

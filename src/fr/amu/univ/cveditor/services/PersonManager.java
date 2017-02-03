@@ -48,7 +48,7 @@ public class PersonManager {
 	/* Members Methods */
 	public List<Person> listAll() {
 		return em.createQuery("SELECT * FROM \"PERSONS\"", Person.class).getResultList();
-	}//getAll()
+	}//listAll()
 
 	public void create(Person p) throws BadPerson {
 		em.persist(p);
@@ -63,7 +63,7 @@ public class PersonManager {
 			throw new BadPerson("Not a valid password");
 		}
 
-	}//createPerson()
+	}//create()
 
 	public void update(Person p) {
 		Person modifiedPerson;
@@ -75,23 +75,23 @@ public class PersonManager {
 		modifiedPerson.setBirthdate(p.getBirthdate());
 		modifiedPerson.setWebSite(p.getWebSite());
 		modifiedPerson.setPassword(p.getPassword());
-	}//updatePerson()
+	}//update()
 
 	public Person find(String email) {
 		return em.find(Person.class, email);
-	}//getPerson()
+	}//find()
 
 	public Person search(Person p) {
 		return em.find(Person.class, p.getEmail());
-	}//searchPerson()
+	}//search()
 
-	public boolean removePerson(String email) {
+	public boolean remove(String email) {
 		Person person = em.find(Person.class, email);
 		if(person != null) {
 			em.remove(person);
 			return true;
 		}
 		return false;
-	}//deletePerson()
+	}//remove()
 
 }//PersonManager

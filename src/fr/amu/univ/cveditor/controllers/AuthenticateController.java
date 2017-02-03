@@ -19,8 +19,9 @@ public class AuthenticateController {
 		return authm.login(login, pwd) ? nav.account() : nav.auth();
 	}//login()
 	
-	public void logout(String login) {
+	public String logout(String login) {
 		authm.logout(login);
+		return nav.auth();
 	}//logout()
 	
 }//AuthentificationController()

@@ -25,4 +25,13 @@ public class Navigation {
 		return "editCV";
 	}//editCv()
 
+	public String showPerson() {
+		return "showPerson";
+	}//showPerson()
+
+	public String editPerson() {
+		return "editPerson";
+	}
+	
+
 }//Navigation

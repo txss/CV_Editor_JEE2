@@ -2,19 +2,22 @@ package fr.amu.univ.cveditor.entities;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Cvs")
+@Table(name = "CV")
 public class Cv {
 
 	@Id
+	@Column(name = "id")
 	private int id;
 	
 
+	@Column(name = "activites")
 	@ElementCollection
 	public ArrayList<Activite> activites;
 	

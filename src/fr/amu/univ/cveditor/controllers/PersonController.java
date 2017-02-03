@@ -13,24 +13,42 @@ import fr.amu.univ.cveditor.services.PersonManager;
 @ManagedBean(name="person")
 @SessionScoped
 public class PersonController {
-	
+
+	private Person p;
+	private Navigation nav;
+
 	@EJB
 	private PersonManager pm;
-	
-	public List<Person> getAllPerson() {
-		return pm.listAll();
-	}//getAllPerson()
-	
+
 	public Person getPerson(String email) {
-		return pm.find(email);
+		return this.p;
 	}//getPerson()
-	
-	public void setPerson(Person p) throws BadPerson {
+
+	public List<Person> findAll() {
+		return pm.listAll();
+	}//findAll()
+
+	public void storePerson(Person p) throws BadPerson {
 		pm.create(p);
-	}//setPerson()
-	
+	}//storePerson()
+
 	public void updatePerson(Person p){
 		pm.update(p);
 	}//updatePerson()
-	
+
+
+	public String show(String email) {
+		p = pm.find(email);
+		return nav.showPerson();
+	}//show()
+
+	public String edit() {
+		return nav.editPerson();
+	}//edit()
+
+	public String newPerson() {
+		p = new Person();
+		return nav.editPerson();
+	}//newPerson()
+
 }//PersonController

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:body>
+	<ui:composition template="/template/mylayout.xhtml">
+		<ui:define name="title">Cv Editor Sing in</ui:define>
+		
+		<ui:define name="content">
+			<f:view>
+				<h1>
+					<h:outputText value="Inscription" />
+				</h1>
+				
+				<c:set var="p" value="#{person.person}"/>
+				<h:form>
+					
+					<h:panelGrid columns="2">
+						<h:outputLabel for="nameCV">Nom : *</h:outputLabel>
+						<h:inputText value="#{p.name}" id="nameCV"></h:inputText>
+					
+						<h:outputLabel for="firstnameCV">Prénom : *</h:outputLabel>
+						<h:inputText value="#{p.firstName}" id="firstNameCV"></h:inputText>
+						
+						<h:outputLabel for="emailCV">Email : *</h:outputLabel>
+						<h:inputText value="#{p.email}" id="emailCV"></h:inputText>
+						
+						<h:outputLabel for="webSiteCV">Site web : </h:outputLabel>
+						<h:inputText value="#{p.webSite}" id="webSiteCV"></h:inputText>
+						
+						<h:outputLabel for="birthdateCV">Date de naissance : *</h:outputLabel>
+						<h:inputText value="#{p.birthdate}" id="birthdateCV"></h:inputText>
+						
+						<h:outputLabel for="passwordCV">Mots de passe :* </h:outputLabel>
+						<h:inputText value="#{p.password}" id="passwordCV"></h:inputText>
+						
+					</h:panelGrid>
+					
+				</h:form>
+				
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

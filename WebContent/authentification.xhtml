@@ -34,9 +34,12 @@
 								<h:message style="color:red" for="pwd" />
 		
 								<h:commandButton action="#{auth.login(email.value, password.value)}" value="Login" />
-		
+						
 							</h:panelGrid>
 						</table>
+					</h:form>
+					<h:form>
+						<h:commandLink action="signIn" value="Sing in" />
 					</h:form>
 				</f:view>
 	         </div>  

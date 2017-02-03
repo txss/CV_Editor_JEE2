@@ -17,6 +17,8 @@ public class Cv {
 	@Column(name = "id")
 	private int id;
 	
+	@Column(name="name")
+	private String name;
 
 	@Column(name = "activites")
 	@ElementCollection
@@ -28,10 +30,12 @@ public class Cv {
 	
 	/* Getters */
 	public int 					getId() 		{ return id;		}
+	public String				getName()		{ return name;		}
 	public ArrayList<Activite> 	getActivites() 	{ return activites; }
 
 	/* Setters */
 	public void setId(int id) 								{ this.id = id; 				}
+	public void setName(String name)						{ this.name = name;				}
 	public void setActivites(ArrayList<Activite> activites) { this.activites = activites; 	}
 	
 	/* Members Methods */

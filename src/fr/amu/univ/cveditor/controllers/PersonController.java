@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import fr.amu.univ.cveditor.entities.Person;
-import fr.amu.univ.cveditor.exceptions.BadPerson;
 import fr.amu.univ.cveditor.services.PersonManager;
 
 @ManagedBean(name="person")
@@ -15,7 +14,7 @@ import fr.amu.univ.cveditor.services.PersonManager;
 public class PersonController {
 
 	private Person p = new Person();
-	private Navigation nav;
+	private Navigation nav = new Navigation();
 
 	@EJB
 	private PersonManager pm;
@@ -28,8 +27,14 @@ public class PersonController {
 		return pm.listAll();
 	}//findAll()
 
-	public void storePerson() throws BadPerson {
-		pm.create(p);
+	public String storePerson() {
+		try {
+			pm.create(p);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nav.auth();
 	}//storePerson()
 
 	public void updatePerson(){
@@ -45,10 +50,5 @@ public class PersonController {
 	public String edit() {
 		return nav.editPerson();
 	}//edit()
-
-	public String newPerson() {
-		p = new Person();
-		return nav.editPerson();
-	}//newPerson()
 
 }//PersonController

@@ -10,13 +10,13 @@ import fr.amu.univ.cveditor.services.ConnectedUserManager;
 @SessionScoped
 public class AuthenticateController {
 	
-	private Navigation nav;
+	private Navigation nav = new Navigation();
 	
 	@EJB
 	private ConnectedUserManager um;
 	
 	public String login(String login, String pwd) {
-		return um.login(login, pwd) != null ? nav.account() : nav.auth();
+		return (um.login(login, pwd) != null) ? nav.account() : nav.auth();
 	}//login()
 	
 	public String logout() {

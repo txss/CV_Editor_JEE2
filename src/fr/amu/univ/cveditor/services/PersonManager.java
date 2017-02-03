@@ -35,15 +35,15 @@ public class PersonManager {
 	}//close()
 
 
-	/* Interceptor */
-	@AroundInvoke
-	public Object interceptor(InvocationContext context) throws Exception {
-		Object obj = null;
-
-		if(um.getUser() != null)
-			obj = context.proceed();
-		return obj;
-	}//interceptor()
+//	/* Interceptor */
+//	@AroundInvoke
+//	public Object interceptor(InvocationContext context) throws Exception {
+//		Object obj = null;
+//
+//		if(um.getUser() != null)
+//			obj = context.proceed();
+//		return obj;
+//	}//interceptor()
 
 	/* Members Methods */
 	public List<Person> listAll() {
@@ -52,16 +52,16 @@ public class PersonManager {
 
 	public void create(Person p) throws BadPerson {
 		em.persist(p);
-
-		IValidator valid = new EmailValidator();
-		if(valid.validate(p.getEmail())) {
-			throw new BadPerson("Not a valid email address");
-		}
-
-		valid = new PswValidator();
-		if(valid.validate(p.getPassword())) {
-			throw new BadPerson("Not a valid password");
-		}
+		// TODO NEGRO
+//		IValidator valid = new EmailValidator();
+//		if(valid.validate(p.getEmail())) {
+//			throw new BadPerson("Not a valid email address");
+//		}
+//
+//		valid = new PswValidator();
+//		if(valid.validate(p.getPassword())) {
+//			throw new BadPerson("Not a valid password");
+//		}
 
 	}//create()
 

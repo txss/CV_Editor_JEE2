@@ -12,37 +12,35 @@
     	<ui:define name="title">Cv Editor login</ui:define>
 
         <ui:define name="content">
-           
-           
-         <f:view>
-			<h1>Course edition</h1>
-			<h:form id="login_form">
-				<table>
-					<h:panelGrid columns="3">
-						<h:outputText value="Identifiant :" />
-						<h:inputText id="name" required="true"
-							requiredMessage="Le nom est obligatoire">
-							<f:validateRequired />
-							<f:validateLength minimum="3" maximum="10" />
-							<f:validateRegex
-                 				  pattern="((?=.*[a-z])(?=.*[A-Z]).{2,20})" />
-						</h:inputText>
-						<h:message style="color:red" for="name" />
-
-						<h:outputText value="Mots de passe :" />
-						<h:inputText id="pwd" required="true"
-						requiredMessage="Le nom est obligatoire">
-						</h:inputText>
-						<h:message style="color:red" for="pwd" />
-
-						<h:commandButton action="#{course.login()}" value="Save" /> | 
-
-					</h:panelGrid>
-				</table>
-			</h:form>
-		</f:view>
-           
-           
+         <div class="row">
+         
+	         <div class="col-sm-6 col-md-4 col-md-offset-5">
+		         <f:view>
+					<h:form id="login_form">
+						<table>
+							<h:panelGrid columns="3">
+								<h:outputText value="Identifiant :"/>
+								<h:inputText binding="#{email}" id="name" required="true"
+									requiredMessage="Le nom est obligatoire">
+									<f:validateRequired />
+									<f:validateLength minimum="3" maximum="10" />
+								</h:inputText>
+								<h:message style="color:red" for="name" />
+		
+								<h:outputText value="Mots de passe :" />
+								<h:inputSecret binding="#{password}" id="pwd" required="true"
+								requiredMessage="Le nom est obligatoire">
+								</h:inputSecret>
+								<h:message style="color:red" for="pwd" />
+		
+								<h:commandButton action="#{auth.login(email.value, password.value)}" value="Login" />
+		
+							</h:panelGrid>
+						</table>
+					</h:form>
+				</f:view>
+	         </div>  
+          </div>
         </ui:define>
         
     </ui:composition>

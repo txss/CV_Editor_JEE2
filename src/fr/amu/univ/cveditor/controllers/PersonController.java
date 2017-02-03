@@ -20,7 +20,7 @@ public class PersonController {
 	@EJB
 	private PersonManager pm;
 
-	public Person getPerson(String email) {
+	public Person getPerson() {
 		return this.p;
 	}//getPerson()
 

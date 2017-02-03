@@ -20,24 +20,50 @@
 				<c:set var="p" value="#{person.person}"/>
 				<h:form>
 					
-					<h:panelGrid columns="2">
+					<h:panelGrid columns="3">
 						<h:outputLabel for="nameCV">Nom : *</h:outputLabel>
-						<h:inputText value="#{p.name}" id="nameCV"></h:inputText>
+						<h:inputText value="#{p.name}" id="nameCV" required="true"
+						requiredMessage="Le nom est obligatoire">
+							<f:validateRequired />
+							<f:validateLength minimum="3" maximum="30" />
+						</h:inputText>
+						<h:message for="nameCV" style="color:red" />
 					
 						<h:outputLabel for="firstnameCV">Prénom : *</h:outputLabel>
-						<h:inputText value="#{p.firstName}" id="firstNameCV"></h:inputText>
+						<h:inputText value="#{p.firstName}" id="firstNameCV" required="true" 
+						requiredMessage="Le prénom est obligatoire">
+							<f:validateRequired />
+							<f:validateLength minimum="3" maximum="30" />
+						</h:inputText>
+						<h:message for="firstNameCV" style="color:red" />
 						
 						<h:outputLabel for="emailCV">Email : *</h:outputLabel>
-						<h:inputText value="#{p.email}" id="emailCV"></h:inputText>
+						<h:inputText value="#{p.email}" id="emailCV" required="true" label="Email"
+						requiredMessage="L'email est obligatoire">
+							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							<f:validateRequired />
+						</h:inputText>
+						<h:message for="emailCV" style="color:red" />
 						
 						<h:outputLabel for="webSiteCV">Site web : </h:outputLabel>
-						<h:inputText value="#{p.webSite}" id="webSiteCV"></h:inputText>
+						<h:inputText value="#{p.webSite}" id="webSiteCV">
+						</h:inputText>
+						<h:message for="webSiteCV" style="color:red" />
 						
 						<h:outputLabel for="birthdateCV">Date de naissance : *</h:outputLabel>
-						<h:inputText value="#{p.birthdate}" id="birthdateCV"></h:inputText>
+						<h:inputText value="#{p.birthdate}" id="birthdateCV" required="true"
+						requiredMessage="La date de naissance est obligatoire">
+							<f:validateRequired />
+							<f:convertDateTime pattern="d-M-yyyy" />
+						</h:inputText>
+						<h:message for="birthdateCV" style="color:red" />
 						
 						<h:outputLabel for="passwordCV">Mots de passe :* </h:outputLabel>
-						<h:inputText value="#{p.password}" id="passwordCV"></h:inputText>
+						<h:inputSecret value="#{p.password}" id="passwordCV" required="true" 
+						requiredMessage="Le mots de passe est obligatoire">
+							<f:validateRequired />
+						</h:inputSecret>
+						<h:message for="passwordCV" style="color:red" />
 						
 					</h:panelGrid>
 					

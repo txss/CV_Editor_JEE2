@@ -1,14 +1,14 @@
 package fr.amu.univ.cveditor.controllers;
 
 import javax.ejb.EJB;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import fr.amu.univ.cveditor.services.AuthenticateManager;
 import fr.amu.univ.cveditor.services.ConnectedUserManager;
 
 @ManagedBean(name="auth")
-@ApplicationScoped
+@SessionScoped
 public class AuthenticateController {
 	
 	private Navigation nav;

@@ -30,7 +30,7 @@ public class AuthenticateManager {
 	
 	public boolean logout(String login) {
 		if(um.getUser().getEmail().equals(login)) {
-			um.close();
+			um.setUser(null);
 			return true;
 		}
 		return false;

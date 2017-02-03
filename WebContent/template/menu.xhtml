@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
@@ -39,7 +40,7 @@
 						<c:if test="#{auth.isConnected()}">
 							<h:commandLink action="authentification" value="Se connecter" />
 						</c:if>
-						<c:if test="#{!auth.isConnected()}">
+						<c:if test="#{auth.isConnected() eq false}">
 							<h:commandLink action="#{auth.logout()}" value="Se deconnecter" />
 						</c:if>
 					</h:form>

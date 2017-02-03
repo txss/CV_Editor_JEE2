@@ -37,10 +37,10 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<h:form>
-						<c:if test="#{auth.isConnected()}">
+						<c:if test="#{auth.isConnected() eq false}">
 							<h:commandLink action="authentification" value="Se connecter" />
 						</c:if>
-						<c:if test="#{auth.isConnected() eq false}">
+						<c:if test="#{auth.isConnected() eq true}">
 							<h:commandLink action="#{auth.logout()}" value="Se deconnecter" />
 						</c:if>
 					</h:form>

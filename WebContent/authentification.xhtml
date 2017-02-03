@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:body>
@@ -13,7 +14,33 @@
         <ui:define name="content">
            
            
-           Page de login
+         <f:view>
+			<h1>Course edition</h1>
+			<h:form id="login_form">
+				<table>
+					<h:panelGrid columns="3">
+						<h:outputText value="Identifiant :" />
+						<h:inputText id="name" required="true"
+							requiredMessage="Le nom est obligatoire">
+							<f:validateRequired />
+							<f:validateLength minimum="3" maximum="10" />
+							<f:validateRegex
+                 				  pattern="((?=.*[a-z])(?=.*[A-Z]).{2,20})" />
+						</h:inputText>
+						<h:message style="color:red" for="name" />
+
+						<h:outputText value="Mots de passe :" />
+						<h:inputText id="pwd" required="true"
+						requiredMessage="Le nom est obligatoire">
+						</h:inputText>
+						<h:message style="color:red" for="pwd" />
+
+						<h:commandButton action="#{course.login()}" value="Save" /> | 
+
+					</h:panelGrid>
+				</table>
+			</h:form>
+		</f:view>
            
            
         </ui:define>

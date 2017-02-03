@@ -13,6 +13,10 @@ public class Navigation {
         return "authentification";
     }//auth()
     
+    public String signIn() {
+    	return "signIn";
+    }//signIn()
+    
     public String account() {
     	return "myAccount";
     }//account()

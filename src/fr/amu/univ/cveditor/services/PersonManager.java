@@ -20,8 +20,6 @@ import fr.amu.univ.cveditor.utils.PswValidator;
 @Stateful(name = "personManager", description = "Manager d'entités pour les personnes") 
 public class PersonManager {
 
-	private boolean isAuth = false;
-
 	@EJB
 	private ConnectedUserManager um;
 
@@ -30,12 +28,10 @@ public class PersonManager {
 
 	@PostConstruct
 	public void init() {
-		if(um.getUser() != null) isAuth = true;
 	}//init()
 
 	@Remove
 	public void close() {
-
 	}//close()
 
 
@@ -44,7 +40,7 @@ public class PersonManager {
 	public Object interceptor(InvocationContext context) throws Exception {
 		Object obj = null;
 
-		if(isAuth)
+		if(um.getUser() != null)
 			obj = context.proceed();
 		return obj;
 	}//interceptor()
@@ -54,7 +50,7 @@ public class PersonManager {
 		return em.createQuery("SELECT * FROM \"PERSONS\"", Person.class).getResultList();
 	}//getAll()
 
-	public void createPerson(Person p) throws BadPerson {
+	public void create(Person p) throws BadPerson {
 		em.persist(p);
 
 		IValidator valid = new EmailValidator();
@@ -69,7 +65,7 @@ public class PersonManager {
 
 	}//createPerson()
 
-	public void updatePerson(Person p) {
+	public void update(Person p) {
 		Person modifiedPerson;
 
 		modifiedPerson = em.find(Person.class, p.getEmail());
@@ -81,11 +77,11 @@ public class PersonManager {
 		modifiedPerson.setPassword(p.getPassword());
 	}//updatePerson()
 
-	public Person getPerson(String email) {
+	public Person find(String email) {
 		return em.find(Person.class, email);
 	}//getPerson()
 
-	public Person searchPerson(Person p) {
+	public Person search(Person p) {
 		return em.find(Person.class, p.getEmail());
 	}//searchPerson()
 
@@ -98,4 +94,4 @@ public class PersonManager {
 		return false;
 	}//deletePerson()
 
-}//PersonEJB
+}//PersonManager

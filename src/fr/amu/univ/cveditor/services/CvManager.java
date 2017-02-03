@@ -16,8 +16,6 @@ import fr.amu.univ.cveditor.entities.Cv;
 @Stateful(name="cvManager", description = "Manager d'entités pour les CV")
 public class CvManager {
 
-	private boolean isAuth = false;
-
 	@EJB
 	private ConnectedUserManager um;
 
@@ -26,12 +24,10 @@ public class CvManager {
 
 	@PostConstruct
 	public void init() {
-		if(um.getUser() != null) isAuth = true;
 	}//init()
 
 	@Remove
 	public void close() {
-
 	}//close()
 
 
@@ -39,7 +35,7 @@ public class CvManager {
 	@AroundInvoke
 	public Object interceptor(InvocationContext context) throws Exception {
 		Object obj = null;
-		if(isAuth)
+		if(um.getUser() != null)
 			obj = context.proceed();
 		return obj;
 	}//interceptor()
@@ -50,25 +46,25 @@ public class CvManager {
 		return em.createQuery("SELECT * FROM \"Cvs\"", Cv.class).getResultList();
 	}//getAll()
 
-	public void createCv(Cv cv){
+	public void create(Cv cv) {
 		em.persist(cv);
 	}//saveCv()
 
-	public void updateCv(Cv cv){
+	public void update(Cv cv) {
 		Cv modifiedCv = em.find(Cv.class, cv.getId());
 
 		modifiedCv.setActivites(cv.getActivites());
 	}//updateCv()
 
-	public Cv getCv(int id){
+	public Cv find(int id) {
 		return em.find(Cv.class, id);
 	}//getCvById()
 
-	public Cv searchCv(Cv cv){
+	public Cv search(Cv cv) {
 		return em.find(Cv.class, cv.getId());
 	}//searchCv()
 
-	public boolean removeCv(int id){
+	public boolean remove(int id) {
 		Cv cv = em.find(Cv.class, id);
 		if(cv != null) {
 			em.remove(cv);
@@ -77,4 +73,4 @@ public class CvManager {
 		return false;
 	}//removeCV()
 
-}//CvEJB
+}//CvManager

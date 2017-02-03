@@ -22,15 +22,15 @@ public class PersonController {
 	}//getAllPerson()
 	
 	public Person getPerson(String email) {
-		return pm.getPerson(email);
+		return pm.find(email);
 	}//getPerson()
 	
 	public void setPerson(Person p) throws BadPerson {
-		pm.createPerson(p);
+		pm.create(p);
 	}//setPerson()
 	
 	public void updatePerson(Person p){
-		pm.updatePerson(p);
+		pm.update(p);
 	}//updatePerson()
 	
 }//PersonController

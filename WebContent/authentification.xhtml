@@ -27,19 +27,18 @@
 								</h:inputText>
 								<h:message style="color:red" for="name" />
 		
-								<h:outputText value="Mots de passe :" />
+								<h:outputText value="Mot de passe :" />
 								<h:inputSecret binding="#{password}" id="pwd" required="true"
-								requiredMessage="Le nom est obligatoire">
+								requiredMessage="Le mot de passe est obligatoire">
 								</h:inputSecret>
 								<h:message style="color:red" for="pwd" />
 		
-								<h:commandButton action="#{auth.login(email.value, password.value)}" value="Login" />
-						
 							</h:panelGrid>
 						</table>
+						<h:commandButton action="#{auth.login(email.value, password.value)}" value="Login" />
 					</h:form>
 					<h:form>
-						<h:commandLink action="signIn" value="Sing in" />
+						<h:commandLink action="signIn" value="Sign in" />
 					</h:form>
 				</f:view>
 	         </div>  

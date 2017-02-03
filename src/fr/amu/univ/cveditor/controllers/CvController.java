@@ -13,7 +13,7 @@ import fr.amu.univ.cveditor.services.CvManager;
 @SessionScoped
 public class CvController {
 	
-	private Cv cv;
+	private Cv cv = new Cv();
 	private Navigation nav;
 	
 	@EJB

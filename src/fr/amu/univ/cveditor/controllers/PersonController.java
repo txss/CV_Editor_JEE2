@@ -14,7 +14,7 @@ import fr.amu.univ.cveditor.services.PersonManager;
 @SessionScoped
 public class PersonController {
 
-	private Person p;
+	private Person p = new Person();
 	private Navigation nav;
 
 	@EJB
@@ -28,17 +28,17 @@ public class PersonController {
 		return pm.listAll();
 	}//findAll()
 
-	public void storePerson(Person p) throws BadPerson {
+	public void storePerson() throws BadPerson {
 		pm.create(p);
 	}//storePerson()
 
-	public void updatePerson(Person p){
+	public void updatePerson(){
 		pm.update(p);
 	}//updatePerson()
 
 
-	public String show(String email) {
-		p = pm.find(email);
+	public String show(Person p) {
+		p = pm.search(p);
 		return nav.showPerson();
 	}//show()
 

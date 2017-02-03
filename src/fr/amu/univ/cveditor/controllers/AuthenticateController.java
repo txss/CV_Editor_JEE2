@@ -4,7 +4,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import fr.amu.univ.cveditor.services.AuthenticateManager;
 import fr.amu.univ.cveditor.services.ConnectedUserManager;
 
 @ManagedBean(name="auth")

@@ -6,7 +6,7 @@ import javax.faces.bean.ManagedBean;
 
 import fr.amu.univ.cveditor.services.AuthenticateManager;
 
-@ManagedBean
+@ManagedBean(name="auth")
 @ApplicationScoped
 public class AuthenticateController {
 	

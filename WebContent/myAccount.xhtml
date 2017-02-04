@@ -19,10 +19,11 @@
 			<h1>
 				<h:outputText value="Mon profil" />
 			</h1>
+			
 			<c:set var="p" value="#{person.person}"/>
 			<f:view>
 				<p>Bonjour #{p.firstName} #{p.name}</p>
-				<h4>Mes informations personnelles</h4>
+				<h4>Mes informations personnelles </h4>
 				<p>Date de naissance : #{p.birthdate}</p>
 				<p>Site web : #{p.webSite}</p>
 			</f:view>
@@ -30,7 +31,7 @@
 			<f:view>
 				<h1>Mon cv</h1>
 				<c:set var="c" value="#{cv.cv}"/>
-				<p>->#{c.name}</p>
+				<h3>->#{c.name}</h3>
 				
 				<h:form>
 
@@ -51,6 +52,8 @@
 <!-- 							<f:facet name="header">Action</f:facet> -->
 <!-- 							<h:commandLink value="Show" action="#{course.show(o.id)}" /> -->
 						
+					<h:dataTable>
+					
 						<ui:repeat var="act" varStatus="s" value="#{c.activites}">
 							<tr>
 								<td>#{s.index}</td>
@@ -63,7 +66,9 @@
 										value="Modifier" /></td>
 							</tr>
 						</ui:repeat>
-
+						
+					</h:dataTable>
+					
 					<h:link outcome="#{cv.edit()}">Modifier mon cv <span class="glyphicon glyphicon-pencil"></span></h:link>
 <!-- 					<h:commandButton value="+" action="#{course.newCourse()}" /> -->
 				</h:form>

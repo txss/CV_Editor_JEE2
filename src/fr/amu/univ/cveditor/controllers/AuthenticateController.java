@@ -7,6 +7,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.services.ConnectedUserManager;
 
@@ -20,7 +22,9 @@ public class AuthenticateController {
 	private ConnectedUserManager um;
 
 	public String login(String login, String pwd) {
-		return (um.login(login, pwd) != null) ? nav.account() : nav.auth();
+//		DigestUtils.sha256Hex(pwd);
+		System.out.println(um.login(login, DigestUtils.sha256Hex(pwd)));
+		return (um.login(login, DigestUtils.sha256Hex(pwd)) != null) ? nav.account() : nav.auth();
 	}//login()
 
 	public String logout() {

@@ -3,8 +3,6 @@
 	<Resource id="myDS" type="DataSource">
 		JdbcDriver org.postgresql.Driver
 		JdbcUrl jdbc:postgresql://176.158.66.254/JEE_CVEditor
-		UserName 
-		Password 
 		JtaManaged false
 	</Resource>
 </tomee>

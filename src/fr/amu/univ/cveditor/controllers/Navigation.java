@@ -2,7 +2,7 @@ package fr.amu.univ.cveditor.controllers;
 
 import javax.faces.bean.ManagedBean;
 
-@ManagedBean
+@ManagedBean(name="nav")
 public class Navigation {
 
     public String index() {
@@ -10,7 +10,7 @@ public class Navigation {
     }//index()
     
     public String auth() {
-        return "authentification";
+        return "authenticate";
     }//auth()
     
     public String signIn() {

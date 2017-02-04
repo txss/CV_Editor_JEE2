@@ -17,14 +17,14 @@
 				
 					<li>
 						<h:form>
-							<h:commandLink action="index" value="Accueil" />
+							<h:commandLink action="#{nav.index}" value="Accueil" />
 						</h:form>
 					</li>
 					<c:if test="#{auth.isConnected()}">
 						<li>
 							<h:form>
 								<span class="glyphicon glyphicon-user"></span>
-								<h:commandLink action="myAccount" value=" Mon profil" />
+								<h:commandLink action="#{nav.account}" value=" Mon profil" />
 							</h:form>
 						</li>
 					
@@ -40,9 +40,9 @@
 				<li>
 					<h:form>
 						<c:if test="#{auth.isConnected() eq false}">
-							<h:commandLink action="authentification" value="Se connecter" />
+							<h:commandLink action="#{nav.auth}" value="Se connecter" />
 						</c:if>
-						<c:if test="#{auth.isConnected() eq true}">
+						<c:if test="#{auth.isConnected()}">
 							<h:commandLink action="#{auth.logout()}" value="Se deconnecter" />
 						</c:if>
 					</h:form>

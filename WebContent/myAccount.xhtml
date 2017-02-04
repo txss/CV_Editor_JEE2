@@ -4,18 +4,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+	<f:event listener="#{auth.redirectToAuth}" type="preRenderView" />
+</f:metadata>
 
 <h:body>
-    <ui:composition template="/template/mylayout.xhtml">
-    	<ui:define name="title">Cv Editor Profil</ui:define>
+	<ui:composition template="/template/mylayout.xhtml">
+		<ui:define name="title">Cv Editor Profil</ui:define>
 
-        <ui:define name="content">
-            <h1>
-                <h:outputText value="My Account" />
-            </h1>
-        </ui:define>
-        
-    </ui:composition>
+		<ui:define name="content">
+			<h1>
+				<h:outputText value="My Account" />
+			</h1>
+		</ui:define>
+
+	</ui:composition>
 </h:body>
 </html>
+
+<!--  <h:body>
+	<ui:composition template="/template/mylayout.xhtml">
+		<ui:define name="title">Cv Editor Profil</ui:define>
+
+		<ui:define name="content">
+			<h1>
+				<h:outputText value="My Account" />
+			</h1>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html> -->

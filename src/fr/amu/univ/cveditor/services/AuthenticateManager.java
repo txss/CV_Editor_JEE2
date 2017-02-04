@@ -22,9 +22,4 @@ public class AuthenticateManager {
 		return null;
 	}//login()
 	
-	
-	/*public Person logout() {
-		return null;
-	}//logout()*/
-	
 }//AuthenticateManager

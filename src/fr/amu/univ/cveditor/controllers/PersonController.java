@@ -33,6 +33,7 @@ public class PersonController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return nav.editPerson();
 		}
 		return nav.auth();
 	}//storePerson()

@@ -2,6 +2,7 @@ package fr.amu.univ.cveditor.controllers;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -18,6 +19,11 @@ public class PersonController {
 
 	@EJB
 	private PersonManager pm;
+	
+	
+	@PostConstruct
+	public void init(){
+	}//init()
 
 	public Person getPerson() {
 		return this.p;
@@ -44,7 +50,7 @@ public class PersonController {
 
 
 	public String show(Person p) {
-		p = pm.search(p);
+		this.p = pm.search(p);
 		return nav.showPerson();
 	}//show()
 

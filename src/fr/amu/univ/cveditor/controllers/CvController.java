@@ -14,7 +14,7 @@ import fr.amu.univ.cveditor.services.CvManager;
 public class CvController {
 	
 	private Cv cv = new Cv();
-	private Navigation nav;
+	private Navigation nav = new Navigation();
 	
 	@EJB
 	private CvManager cvm;
@@ -27,11 +27,11 @@ public class CvController {
 		return cvm.listAll();
 	}//findAll()
 	
-	public void storeCv(Cv cv) {
+	public void storeCv() {
 		cvm.create(cv);
 	}//storeCv()
 	
-	public void updateCv(Cv cv){
+	public void updateCv(){
 		cvm.update(cv);
 	}//updateCv()
 	

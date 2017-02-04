@@ -37,9 +37,7 @@
 						</table>
 						<h:commandButton action="#{auth.login(email.value, password.value)}" value="Login" />
 					</h:form>
-					<h:form>
-						<h:commandLink action="signIn" value="Sign in" />
-					</h:form>
+					<h:link outcome="signIn">Sign in</h:link>
 				</f:view>
 	         </div>  
           </div>

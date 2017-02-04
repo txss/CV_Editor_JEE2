@@ -7,6 +7,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -27,6 +28,7 @@ public class Cv {
 	
 	@Column(name="person")
 	@ManyToOne
+	@JoinColumn(name = "ID_PERSON")
 	private Person person;
 	
 	/* Constructor */

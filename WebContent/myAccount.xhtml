@@ -22,12 +22,9 @@
 			<c:set var="p" value="#{person.person}"/>
 			<f:view>
 				<p>Bonjour #{p.firstName} #{p.name}</p>
-				<h4>Vos informations personnel</h4>
+				<h4>Mes informations personnelles</h4>
 				<p>Date de naissance : #{p.birthdate}</p>
 				<p>Site web : #{p.webSite}</p>
-				<p>
-	<!-- 				<h:link outcome="courses">List of courses</h:link> -->
-				</p>
 			</f:view>
 
 			<f:view>
@@ -54,18 +51,21 @@
 <!-- 							<f:facet name="header">Action</f:facet> -->
 <!-- 							<h:commandLink value="Show" action="#{course.show(o.id)}" /> -->
 						
-<!-- 						<ui:repeat var="c" varStatus="s" value="#{course.courses}"> -->
-<!-- 							<tr> -->
-<!-- 								<td>#{s.index}</td> -->
-<!-- 								<td>#{c.id}</td> -->
-<!-- 								<td>#{c.name}</td> -->
-<!-- 								<td><h:commandLink action="#{course.show(c.id)}" -->
-<!-- 										value="Show" /></td> -->
-<!-- 							</tr> -->
-<!-- 						</ui:repeat> -->
+						<ui:repeat var="act" varStatus="s" value="#{c.activites}">
+							<tr>
+								<td>#{s.index}</td>
+								<td>#{act.years}</td>
+								<td>#{act.title}</td>
+								<td>#{act.nature}</td>
+								<td>#{act.description}</td>
+								<td>#{act.email}</td>
+								<td><h:commandLink action="#{activite.update(act.id)}"
+										value="Modifier" /></td>
+							</tr>
+						</ui:repeat>
 
-					
-					<h:commandButton value="+" action="#{course.newCourse()}" />
+					<h:link outcome="#{cv.edit()}">Modifier mon cv <span class="glyphicon glyphicon-pencil"></span></h:link>
+<!-- 					<h:commandButton value="+" action="#{course.newCourse()}" /> -->
 				</h:form>
 			</f:view>
 			

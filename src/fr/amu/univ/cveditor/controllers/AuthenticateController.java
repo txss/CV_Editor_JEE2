@@ -22,8 +22,6 @@ public class AuthenticateController {
 	private ConnectedUserManager um;
 
 	public String login(String login, String pwd) {
-//		DigestUtils.sha256Hex(pwd);
-		System.out.println(um.login(login, DigestUtils.sha256Hex(pwd)));
 		return (um.login(login, DigestUtils.sha256Hex(pwd)) != null) ? nav.account() : nav.auth();
 	}//login()
 

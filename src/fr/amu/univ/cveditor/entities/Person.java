@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 @Entity
 @Table(name = "PERSON")
 public class Person {
@@ -45,7 +47,7 @@ public class Person {
 	public void setEmail(String email) 			{ this.email = email; 			}
 	public void setWebSite(String webSite) 		{ this.webSite = webSite; 		}
 	public void setBirthdate(String birthdate) 	{ this.birthdate = birthdate; 	}
-	public void setPassword(String password) 	{ this.password = password; 	}
+	public void setPassword(String password) 	{ this.password = DigestUtils.sha256Hex(password); 	}
 	public void setCv(Cv cv)					{ this.cv = cv;					}
 	
 	/* Members methods */

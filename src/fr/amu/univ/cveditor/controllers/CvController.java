@@ -19,6 +19,8 @@ public class CvController {
 	@EJB
 	private CvManager cvm;
 	
+	
+	/* Members Methods */
 	public Cv getCv() {
 		return this.cv;
 	}//getCv()
@@ -27,13 +29,17 @@ public class CvController {
 		return cvm.listAll();
 	}//findAll()
 	
-	public void storeCv() {
+	public void store() {
 		cvm.create(cv);
-	}//storeCv()
+	}//store()
 	
-	public void updateCv(){
+	public void update() {
 		cvm.update(cv);
-	}//updateCv()
+	}//update()
+	
+	public void remove() {
+		cvm.remove(cv);
+	}//remove()
 	
 	
 	public String show(Integer id) {

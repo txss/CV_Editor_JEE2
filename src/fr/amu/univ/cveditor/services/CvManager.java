@@ -54,21 +54,21 @@ public class CvManager {
 		em.merge(cv);
 	}//update()
 
-	public Cv find(int id) {
+	public Cv find(Cv cv) {
+		return em.find(Cv.class, cv.getId());
+	}//find()
+	
+	public Cv find(Integer id) {
 		return em.find(Cv.class, id);
 	}//find()
-
+	
+/*
 	public Cv search(Cv cv) {
-		return em.find(Cv.class, cv.getId());
+		
 	}//search()
-
-	public boolean remove(int id) {
-		Cv cv = em.find(Cv.class, id);
-		if(cv != null) {
-			em.remove(cv);
-			return true;
-		}
-		return false;
+*/
+	public void remove(Cv cv) {
+		em.remove(cv);
 	}//remove()
 
 }//CvManager

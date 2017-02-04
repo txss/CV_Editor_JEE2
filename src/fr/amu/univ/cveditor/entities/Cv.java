@@ -1,6 +1,6 @@
 package fr.amu.univ.cveditor.entities;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -24,7 +24,7 @@ public class Cv {
 
 	@Column(name = "activites")
 	@ElementCollection
-	private ArrayList<Activite> activites;
+	private List<Activite> activites;
 	
 
 	@OneToOne(mappedBy = "cv")
@@ -35,16 +35,16 @@ public class Cv {
 
 	
 	/* Getters */
-	public int 					getId() 		{ return id;		}
-	public String				getName()		{ return name;		}
-	public ArrayList<Activite> 	getActivites() 	{ return activites; }
-	public Person				getPerson()		{ return person;	}
+	public int 				getId() 		{ return id;		}
+	public String			getName()		{ return name;		}
+	public List<Activite> 	getActivites() 	{ return activites; }
+	public Person			getPerson()		{ return person;	}
 
 	/* Setters */
-	public void setId(int id) 								{ this.id = id; 				}
-	public void setName(String name)						{ this.name = name;				}
-	public void setActivites(ArrayList<Activite> activites) { this.activites = activites; 	}
-	public void setPerson(Person p)							{ this.person = p;				}
+	public void setId(int id) 							{ this.id = id; 				}
+	public void setName(String name)					{ this.name = name;				}
+	public void setActivites(List<Activite> activites)	{ this.activites = activites; 	}
+	public void setPerson(Person p)						{ this.person = p;				}
 	
 	/* Members Methods */
 	public String toString(){

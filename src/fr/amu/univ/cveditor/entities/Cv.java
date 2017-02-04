@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "CV")
 public class Cv {
 
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int id;
 	
@@ -25,7 +26,7 @@ public class Cv {
 	@ElementCollection
 	private ArrayList<Activite> activites;
 	
-	@Column(name="person")
+
 	@OneToOne(mappedBy = "cv")
 	private Person person;
 	

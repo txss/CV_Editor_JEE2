@@ -61,16 +61,7 @@ public class PersonManager {
 	}//create()
 
 	public void update(Person p) {
-		Person modifiedPerson;
-
-		modifiedPerson = em.find(Person.class, p.getEmail());
-
-		modifiedPerson.setName(p.getName());
-		modifiedPerson.setFirstName(p.getFirstName());
-		modifiedPerson.setBirthdate(p.getBirthdate());
-		modifiedPerson.setWebSite(p.getWebSite());
-		modifiedPerson.setPassword(p.getPassword());
-		modifiedPerson.setCvs(p.getCvs());
+		em.merge(p);
 	}//update()
 
 	public Person find(String email) {

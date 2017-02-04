@@ -37,7 +37,7 @@ public class Person {
 	public String getWebSite() 		{ return webSite; 	}
 	public String getBirthdate() 	{ return birthdate; }
 	public String getPassword() 	{ return password; 	}
-	public Cv 	  getCvs()			{ return cv;		}
+	public Cv 	  getCv()			{ return cv;		}
 
 	/* Setters */
 	public void setName(String name) 			{ this.name = name; 			}
@@ -46,7 +46,7 @@ public class Person {
 	public void setWebSite(String webSite) 		{ this.webSite = webSite; 		}
 	public void setBirthdate(String birthdate) 	{ this.birthdate = birthdate; 	}
 	public void setPassword(String password) 	{ this.password = password; 	}
-	public void setCvs(Cv cv)					{ this.cv = cv;					}
+	public void setCv(Cv cv)					{ this.cv = cv;					}
 	
 	/* Members methods */
 	public String toString(){

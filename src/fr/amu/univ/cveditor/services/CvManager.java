@@ -51,11 +51,7 @@ public class CvManager {
 	}//create()
 
 	public void update(Cv cv) {
-		Cv modifiedCv = em.find(Cv.class, cv.getId());
-
-		modifiedCv.setName(cv.getName());
-		modifiedCv.setActivites(cv.getActivites());
-		modifiedCv.setPerson(cv.getPerson());
+		em.merge(cv);
 	}//update()
 
 	public Cv find(int id) {

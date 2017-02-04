@@ -1,11 +1,9 @@
 package fr.amu.univ.cveditor.entities;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,8 +24,8 @@ public class Person {
 	@Column(name = "password")
 	private String password;
 	
-	@OneToMany(mappedBy = "person")
-	private Set<Cv> cvs;
+	@OneToOne
+	private Cv cv;
 	
 	/* Constructor */
 	public Person() {}
@@ -39,7 +37,7 @@ public class Person {
 	public String getWebSite() 		{ return webSite; 	}
 	public String getBirthdate() 	{ return birthdate; }
 	public String getPassword() 	{ return password; 	}
-	public Set<Cv> getCvs()			{ return cvs;		}
+	public Cv 	  getCvs()			{ return cv;		}
 
 	/* Setters */
 	public void setName(String name) 			{ this.name = name; 			}
@@ -48,7 +46,7 @@ public class Person {
 	public void setWebSite(String webSite) 		{ this.webSite = webSite; 		}
 	public void setBirthdate(String birthdate) 	{ this.birthdate = birthdate; 	}
 	public void setPassword(String password) 	{ this.password = password; 	}
-	public void setCvs(Set<Cv> cvs)				{ this.cvs = cvs;				}
+	public void setCvs(Cv cv)					{ this.cv = cv;					}
 	
 	/* Members methods */
 	public String toString(){

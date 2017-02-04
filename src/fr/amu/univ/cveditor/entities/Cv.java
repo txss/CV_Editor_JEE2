@@ -7,8 +7,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,8 +26,7 @@ public class Cv {
 	private ArrayList<Activite> activites;
 	
 	@Column(name="person")
-	@ManyToOne
-	@JoinColumn(name = "ID_PERSON")
+	@OneToOne(mappedBy = "cv")
 	private Person person;
 	
 	/* Constructor */

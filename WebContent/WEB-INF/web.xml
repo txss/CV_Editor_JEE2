@@ -38,4 +38,7 @@
         <param-name>org.apache.myfaces.annotation.SCAN_PACKAGES</param-name>
         <param-value>monapp</param-value>
     </context-param>
+    <error-page>
+    	<location>/index.jsp</location>
+    </error-page>
 </web-app>

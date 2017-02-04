@@ -8,12 +8,14 @@
 
 <h:body>
     <ui:composition template="/template/mylayout.xhtml">
-    	<ui:define name="title">Cv Editor Accueil</ui:define>
+    	<ui:define name="title">Cv Editor - Votre CV</ui:define>
 
         <ui:define name="content">
             <h1>
-                <h:outputText value="detail d'un cv" />
+                <h:outputText value="#{auth.connectedUser.firstName}, voici votre CV" />
             </h1>
+            
+            
         </ui:define>
         
     </ui:composition>

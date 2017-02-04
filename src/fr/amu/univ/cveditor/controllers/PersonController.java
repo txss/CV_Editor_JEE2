@@ -1,5 +1,6 @@
 package fr.amu.univ.cveditor.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +13,9 @@ import fr.amu.univ.cveditor.services.PersonManager;
 
 @ManagedBean(name="person")
 @SessionScoped
-public class PersonController {
+public class PersonController implements Serializable{
+
+	private static final long serialVersionUID = 1497101057300726477L;
 
 	private Person p = new Person();
 	private Navigation nav = new Navigation();

@@ -16,16 +16,11 @@
 			<ul id="menu" class="nav navbar-nav">
 				
 					<li>
-						<h:form>
-							<h:commandLink action="#{nav.index}" value="Accueil" />
-						</h:form>
+						<h:link outcome="index">Accueil</h:link>
 					</li>
 					<c:if test="#{auth.isConnected()}">
 						<li>
-							<h:form>
-								<span class="glyphicon glyphicon-user"></span>
-								<h:commandLink action="#{nav.account}" value=" Mon profil" />
-							</h:form>
+							<h:link outcome="myAccount"><span class="glyphicon glyphicon-user"></span> Mon profil</h:link>
 						</li>
 					
 				 </c:if>

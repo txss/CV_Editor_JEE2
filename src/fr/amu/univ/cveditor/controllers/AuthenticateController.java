@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 
+import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.services.ConnectedUserManager;
 
 @ManagedBean(name="auth")
@@ -30,6 +31,10 @@ public class AuthenticateController {
 	public boolean isConnected() {
 		return um.getUser() != null;
 	}//isConnected()
+	
+	public Person getConnectedUser() {
+		return um.getUser();
+	}//getConnectedUser()
 
 
 	public void redirectToAuth(ComponentSystemEvent event) {

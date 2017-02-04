@@ -7,6 +7,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +23,11 @@ public class Cv {
 
 	@Column(name = "activites")
 	@ElementCollection
-	public ArrayList<Activite> activites;
+	private ArrayList<Activite> activites;
+	
+	@Column(name="person")
+	@ManyToOne
+	private Person person;
 	
 	/* Constructor */
 	public Cv() {}
@@ -32,11 +37,13 @@ public class Cv {
 	public int 					getId() 		{ return id;		}
 	public String				getName()		{ return name;		}
 	public ArrayList<Activite> 	getActivites() 	{ return activites; }
+	public Person				getPerson()		{ return person;	}
 
 	/* Setters */
 	public void setId(int id) 								{ this.id = id; 				}
 	public void setName(String name)						{ this.name = name;				}
 	public void setActivites(ArrayList<Activite> activites) { this.activites = activites; 	}
+	public void setPerson(Person p)							{ this.person = p;				}
 	
 	/* Members Methods */
 	public String toString(){

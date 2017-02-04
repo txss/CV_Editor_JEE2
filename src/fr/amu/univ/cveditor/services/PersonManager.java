@@ -6,16 +6,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.exceptions.BadPerson;
-import fr.amu.univ.cveditor.utils.EmailValidator;
-import fr.amu.univ.cveditor.utils.IValidator;
-import fr.amu.univ.cveditor.utils.PswValidator;
 
 @Stateful(name = "personManager", description = "Manager d'entités pour les personnes") 
 public class PersonManager {
@@ -75,6 +70,7 @@ public class PersonManager {
 		modifiedPerson.setBirthdate(p.getBirthdate());
 		modifiedPerson.setWebSite(p.getWebSite());
 		modifiedPerson.setPassword(p.getPassword());
+		modifiedPerson.setCvs(p.getCvs());
 	}//update()
 
 	public Person find(String email) {

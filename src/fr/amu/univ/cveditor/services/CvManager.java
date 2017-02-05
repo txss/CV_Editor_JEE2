@@ -3,7 +3,6 @@ package fr.amu.univ.cveditor.services;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -13,9 +12,6 @@ import fr.amu.univ.cveditor.entities.Cv;
 
 @Stateful(name="cvManager", description = "Manager d'entités pour les CV")
 public class CvManager {
-
-	@EJB
-	private ConnectedUserManager um;
 
 	@PersistenceContext(unitName = "myPGSQLBase")
 	private EntityManager em;

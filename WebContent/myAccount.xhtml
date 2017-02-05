@@ -70,7 +70,7 @@
 						
 					</h:dataTable>
 					
-					<h:link outcome="#{cv.edit()}">Modifier mon cv <span class="glyphicon glyphicon-pencil"></span></h:link>
+					<h:link outcome="#{cv.show(auth.connectedUser.cv.id)}">Voir mon cv <span class="glyphicon glyphicon-eye-open"/></h:link>
 <!-- 					<h:commandButton value="+" action="#{course.newCourse()}" /> -->
 				</h:form>
 			</f:view>

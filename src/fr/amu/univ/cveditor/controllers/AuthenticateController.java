@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
@@ -24,9 +25,20 @@ public class AuthenticateController implements Serializable {
 
 	@EJB
 	private ConnectedUserManager um;
+	
+	@ManagedProperty(value = "#{cv}")
+	private CvController cvController;
+	
+	
+	//must povide the setter method
+	public void setCvController(CvController cvController) {
+		this.cvController = cvController;
+	}//setCvController()
+	
 
 	public String login(String login, String pwd) {
-		return (um.login(login, DigestUtils.sha256Hex(pwd)) != null) ? nav.account() : nav.auth();
+		return um.login(login, DigestUtils.sha256Hex(pwd)) != null ? 
+				nav.account() : nav.auth();
 	}//login()
 
 	public String logout() {
@@ -42,8 +54,12 @@ public class AuthenticateController implements Serializable {
 		return um.getUser();
 	}//getConnectedUser()
 	
-	public void updateConnectedUser() {
+	public String updateConnectedUser() {
+		um.getUser().setCv(cvController.getCv());
+		
 		um.updateUser();
+		
+		return nav.showCV();
 	}//updateConnectedUser()
 	
 

@@ -50,8 +50,7 @@ public class Cv {
 	public String toString(){
 		return 	"\nId-> " + this.id + 
 				"\nName-> " + this.name +
-				"\nActivites-> " + this.activites +
-				"\nPerson-> " + this.person;
+				"\nActivites-> " + this.activites;
 	}//toString()
 	
 

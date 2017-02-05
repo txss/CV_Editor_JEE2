@@ -17,7 +17,6 @@
 
 				<c:set var="c" value="#{cv.cv}" />
 				<h:form id="CVform">
-					<!-- <h:inputHidden value="#{c.setPerson(auth.connectedUser)}"/> -->
 					<h:panelGrid columns="2">
 						<h:outputLabel for="nameCV">Nom : </h:outputLabel>
 						<h:inputText value="#{c.name}" id="nameCV"></h:inputText>
@@ -29,7 +28,7 @@
 							</c:forEach>
 						</h:panelGroup>
 					</h:panelGrid>
-					<h:commandButton action="#{cv.store}" value="Enregistrer"></h:commandButton>
+					<h:commandButton action="#{auth.updateConnectedUser}" value="Enregistrer"></h:commandButton>
 
 					<br />
 					<br />

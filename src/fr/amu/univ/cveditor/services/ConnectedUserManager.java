@@ -14,6 +14,8 @@ public class ConnectedUserManager {
 	
 	@EJB
 	private AuthenticateManager auth;
+	@EJB
+	private PersonManager pm;
 	
 	@PostConstruct 
 	public void init(){
@@ -41,5 +43,9 @@ public class ConnectedUserManager {
 	public void logout() {
 		this.p = null;
 	}//logout()
+	
+	public void updateUser() {
+		pm.update(p);
+	}//updateUser()
 	
 }//ConnectedUserManager()

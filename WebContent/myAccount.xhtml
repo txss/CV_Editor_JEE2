@@ -20,7 +20,7 @@
 				<h:outputText value="Mon profil" />
 			</h1>
 			
-			<c:set var="p" value="#{person.person}"/>
+			<c:set var="p" value="#{auth.connectedUser}"/>
 			<f:view>
 				<p>Bonjour #{p.firstName} #{p.name}</p>
 				<h4>Mes informations personnelles </h4>
@@ -32,8 +32,7 @@
 
 			<f:view>
 				<h1>Mon cv</h1>
-				<c:set var="c" value="#{cv.cv}"/>
-				<h3>->#{c.name}</h3>
+				<h3>->#{p.cv.name}</h3>
 				
 				<h:form>
 

@@ -13,7 +13,8 @@ import fr.amu.univ.cveditor.services.PersonManager;
 
 @ManagedBean(name="person")
 @SessionScoped
-public class PersonController implements Serializable{
+
+public class PersonController implements Serializable {
 
 	private static final long serialVersionUID = 1497101057300726477L;
 	

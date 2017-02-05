@@ -1,5 +1,6 @@
 package fr.amu.univ.cveditor.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Person {
 	@Column(name = "password")
 	private String password;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Cv cv;
 	
 	/* Constructor */
@@ -39,7 +40,7 @@ public class Person {
 	public String getWebSite() 		{ return webSite; 	}
 	public String getBirthdate() 	{ return birthdate; }
 	public String getPassword() 	{ return password; 	}
-	public Cv 	  getCv()			{ return cv;		}
+	public Cv	  getCv()			{ return cv;		}
 
 	/* Setters */
 	public void setName(String name) 			{ this.name = name; 			}
@@ -47,8 +48,8 @@ public class Person {
 	public void setEmail(String email) 			{ this.email = email; 			}
 	public void setWebSite(String webSite) 		{ this.webSite = webSite; 		}
 	public void setBirthdate(String birthdate) 	{ this.birthdate = birthdate; 	}
-	public void setPassword(String password) 	{ this.password = DigestUtils.sha256Hex(password); 	}
-	public void setCv(Cv cv)					{ this.cv = cv;					}
+	public void setPassword(String password) 	{ this.password = DigestUtils.sha256Hex(password);}
+	public void setCv(Cv cv) 					{ this.cv = cv;					}
 	
 	/* Members methods */
 	public String toString(){

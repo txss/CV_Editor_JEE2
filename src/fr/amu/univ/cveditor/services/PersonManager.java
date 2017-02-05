@@ -5,14 +5,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Remove;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.exceptions.BadPerson;
 
-@Stateful(name = "personManager", description = "Manager d'entités pour les personnes") 
+@Stateless(name = "personManager", description = "Manager d'entités pour les personnes") 
 public class PersonManager {
 
 	@EJB

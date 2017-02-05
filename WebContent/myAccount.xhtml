@@ -19,62 +19,70 @@
 			<h1>
 				<h:outputText value="Mon profil" />
 			</h1>
-			
-			<c:set var="p" value="#{auth.connectedUser}"/>
+
+			<c:set var="p" value="#{auth.connectedUser}" />
 			<f:view>
 				<p>Bonjour #{p.firstName} #{p.name}</p>
-				<h4>Mes informations personnelles </h4>
-				<p>Date de naissance : #{p.birthdate} </p>
+				<h4>Mes informations personnelles</h4>
+				<p>Date de naissance : #{p.birthdate}</p>
 				<c:if test='#{p.webSite ne ""}'>
 					<p>Site web : #{p.webSite}</p>
 				</c:if>
 			</f:view>
 
-			<f:view>
-				<h1>Mon cv</h1>
-				<h3>->#{p.cv.name}</h3>
-				
+			<c:if test="#{p.cv ne null}">
+				<f:view>
+					<h1>Mon cv</h1>
+					<h3>->#{p.cv.name}</h3>
+
+					<h:form>
+
+						<!-- 							<f:facet name="header">Number</f:facet> -->
+						<!-- 							<h:outputText value="#{o.id}" /> -->
+
+						<!-- 							<f:facet name="header">Name</f:facet> -->
+						<!-- 							<h:outputText value="#{o.name}" /> -->
+
+
+						<!-- 							<f:facet name="header">Hours</f:facet> -->
+						<!-- 							<h:outputText value="#{o.hours}" /> -->
+
+
+						<!-- 							<f:facet name="header">Level</f:facet> -->
+						<!-- 							<h:outputText value="#{o.level}" /> -->
+
+						<!-- 							<f:facet name="header">Action</f:facet> -->
+						<!-- 							<h:commandLink value="Show" action="#{course.show(o.id)}" /> -->
+
+						<h:dataTable>
+
+							<ui:repeat var="act" varStatus="s" value="#{c.activites}">
+								<tr>
+									<td>#{s.index}</td>
+									<td>#{act.years}</td>
+									<td>#{act.title}</td>
+									<td>#{act.nature}</td>
+									<td>#{act.description}</td>
+									<td>#{act.email}</td>
+									<td><h:commandLink action="#{activite.update(act.id)}"
+											value="Modifier" /></td>
+								</tr>
+							</ui:repeat>
+
+						</h:dataTable>
+
+						<h:link outcome="#{cv.show(auth.connectedUser.cv.id)}">Voir mon CV <span
+								class="glyphicon glyphicon-eye-open" />
+						</h:link>
+					</h:form>
+				</f:view>
+			</c:if>
+			<c:if test="#{p.cv eq null}">
 				<h:form>
-
-<!-- 							<f:facet name="header">Number</f:facet> -->
-<!-- 							<h:outputText value="#{o.id}" /> -->
-
-<!-- 							<f:facet name="header">Name</f:facet> -->
-<!-- 							<h:outputText value="#{o.name}" /> -->
-
-
-<!-- 							<f:facet name="header">Hours</f:facet> -->
-<!-- 							<h:outputText value="#{o.hours}" /> -->
-
-
-<!-- 							<f:facet name="header">Level</f:facet> -->
-<!-- 							<h:outputText value="#{o.level}" /> -->
-							
-<!-- 							<f:facet name="header">Action</f:facet> -->
-<!-- 							<h:commandLink value="Show" action="#{course.show(o.id)}" /> -->
-						
-					<h:dataTable>
-					
-						<ui:repeat var="act" varStatus="s" value="#{c.activites}">
-							<tr>
-								<td>#{s.index}</td>
-								<td>#{act.years}</td>
-								<td>#{act.title}</td>
-								<td>#{act.nature}</td>
-								<td>#{act.description}</td>
-								<td>#{act.email}</td>
-								<td><h:commandLink action="#{activite.update(act.id)}"
-										value="Modifier" /></td>
-							</tr>
-						</ui:repeat>
-						
-					</h:dataTable>
-					
-					<h:link outcome="#{cv.show(auth.connectedUser.cv.id)}">Voir mon cv <span class="glyphicon glyphicon-eye-open"/></h:link>
-<!-- 					<h:commandButton value="+" action="#{course.newCourse()}" /> -->
+					<h:commandLink action="#{cv.newCv()}" value="Créer votre CV" />
 				</h:form>
-			</f:view>
-			
+			</c:if>
+
 		</ui:define>
 
 	</ui:composition>

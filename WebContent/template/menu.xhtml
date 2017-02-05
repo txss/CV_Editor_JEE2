@@ -35,7 +35,7 @@
 				<li>
 					<h:form>
 						<c:if test="#{auth.isConnected() eq false}">
-							<h:commandLink action="#{nav.auth}" value="Se connecter" />
+							<h:link outcome="authenticate">Se connecter</h:link>
 						</c:if>
 						<c:if test="#{auth.isConnected()}">
 							<h:commandLink action="#{auth.logout()}" value="Se deconnecter" />

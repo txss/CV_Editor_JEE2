@@ -1,8 +1,6 @@
 package fr.amu.univ.cveditor.entities;
 
-
 import javax.persistence.CascadeType;
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,9 +11,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 @Entity
 @Table(name = "PERSON")
-public class Person implements Serializable{
-
-	private static final long serialVersionUID = 6463738256477673353L;
+public class Person {
 
 	@Id
 	private String email;

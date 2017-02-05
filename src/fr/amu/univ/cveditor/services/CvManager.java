@@ -6,8 +6,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -32,13 +30,13 @@ public class CvManager {
 
 
 	/* Interceptor */
-	@AroundInvoke
+	/*@AroundInvoke
 	public Object interceptor(InvocationContext context) throws Exception {
 		Object obj = null;
 		if(um.getUser() != null)
 			obj = context.proceed();
 		return obj;
-	}//interceptor()
+	}//interceptor()*/
 
 
 	/* Members Methods */

@@ -1,5 +1,7 @@
 package fr.amu.univ.cveditor.controllers;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
@@ -14,7 +16,9 @@ import fr.amu.univ.cveditor.services.ConnectedUserManager;
 
 @ManagedBean(name="auth")
 @SessionScoped
-public class AuthenticateController {
+public class AuthenticateController implements Serializable {
+
+	private static final long serialVersionUID = 6471683296530961330L;
 
 	private Navigation nav = new Navigation();
 
@@ -37,7 +41,11 @@ public class AuthenticateController {
 	public Person getConnectedUser() {
 		return um.getUser();
 	}//getConnectedUser()
-
+	
+	public void updateConnectedUser() {
+		um.updateUser();
+	}//updateConnectedUser()
+	
 
 	public void redirectToAuth(ComponentSystemEvent event) {
 		if(!isConnected()) {

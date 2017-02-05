@@ -1,9 +1,11 @@
 package fr.amu.univ.cveditor.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import fr.amu.univ.cveditor.entities.Cv;
@@ -11,7 +13,9 @@ import fr.amu.univ.cveditor.services.CvManager;
 
 @ManagedBean(name="cv")
 @SessionScoped
-public class CvController {
+public class CvController implements Serializable {
+	
+	private static final long serialVersionUID = 3314456687259986660L;
 	
 	private Cv cv = new Cv();
 	private Navigation nav = new Navigation();
@@ -19,6 +23,12 @@ public class CvController {
 	@EJB
 	private CvManager cvm;
 	
+	@ManagedProperty(value="#{auth}")
+	private AuthenticateController auth;
+	
+	public void setAuthenticateController(AuthenticateController auth) {
+		this.auth = auth;
+	}//setAuthenticateController
 	
 	/* Members Methods */
 	public Cv getCv() {
@@ -29,16 +39,17 @@ public class CvController {
 		return cvm.listAll();
 	}//findAll()
 	
-	public void store() {
-		cvm.create(cv);
+	public String store() {
+		auth.getConnectedUser().setCv(cv);
+		auth.updateConnectedUser();
+		
+		return nav.showCV();
 	}//store()
 	
-	public void update() {
-		cvm.update(cv);
-	}//update()
-	
-	public void remove() {
+	public String remove() {
 		cvm.remove(cv);
+		
+		return nav.account();
 	}//remove()
 	
 	

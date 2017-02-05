@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:body>
     <ui:composition template="/template/mylayout.xhtml">
@@ -15,6 +16,12 @@
                 <h:outputText value="#{auth.connectedUser.firstName}, voici votre CV" />
             </h1>
             
+            <c:set var="c" value="#{cv.cv}"/>
+            <h:form>
+				<h3>
+					<h:outputText value="#{c.name}" />
+				</h3>
+			</h:form>
             
         </ui:define>
         

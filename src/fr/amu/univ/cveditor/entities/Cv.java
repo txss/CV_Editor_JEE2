@@ -27,7 +27,7 @@ public class Cv {
 	private List<Activite> activites;
 	
 
-	@OneToOne(mappedBy = "cv")
+	@OneToOne(mappedBy="cv")
 	private Person person;
 	
 	/* Constructor */
@@ -49,7 +49,9 @@ public class Cv {
 	/* Members Methods */
 	public String toString(){
 		return 	"\nId-> " + this.id + 
-				"\nActivites-> " + this.activites;
+				"\nName-> " + this.name +
+				"\nActivites-> " + this.activites +
+				"\nPerson-> " + this.person;
 	}//toString()
 	
 

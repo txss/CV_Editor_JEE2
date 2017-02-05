@@ -11,18 +11,50 @@
 	<ui:composition template="/template/mylayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-			<c:set var="c" value="#{cv.cv}"/>
 				<h1>
 					<h:outputText value="Edition de votre CV" />
 				</h1>
-				<h:form>
+
+				<c:set var="c" value="#{cv.cv}" />
+				<h:form id="CVform">
+					<!-- <h:inputHidden value="#{c.setPerson(auth.connectedUser)}"/> -->
 					<h:panelGrid columns="2">
 						<h:outputLabel for="nameCV">Nom : </h:outputLabel>
 						<h:inputText value="#{c.name}" id="nameCV"></h:inputText>
-						<h:commandButton action="c." value="Enregistrer"></h:commandButton>
+						<h:panelGroup id="actList">
+							<h:outputText value="Activités : " />
+							<c:forEach var="a" items="#{activite.getActivites()}">
+								<h:outputLink action="#{activite.getActivite(a.id)}"
+									value="Activité n°#{a.id}" />
+							</c:forEach>
+						</h:panelGroup>
 					</h:panelGrid>
-					
+					<h:commandButton action="#{cv.store}" value="Enregistrer"></h:commandButton>
+
+					<br />
+					<br />
+					<h:panelGrid columns="2">
+						<h:outputLabel for="years">Années : </h:outputLabel>
+						<h:inputText id="years" value="#{activite.activite.years}" />
+
+						<h:outputLabel for="nature">Nature : </h:outputLabel>
+						<h:inputText id="nature" value="#{activite.activite.nature}" />
+
+						<h:outputLabel for="title">Titre : </h:outputLabel>
+						<h:inputText id="title" value="#{activite.activite.title}" />
+
+						<h:outputLabel for="desc">Description : </h:outputLabel>
+						<h:inputTextarea id="desc"
+							value="#{activite.activite.description}" />
+
+						<h:outputLabel for="email">Email : </h:outputLabel>
+						<h:inputText id="email" value="#{activite.activite.email}" />
+					</h:panelGrid>
+					<h:commandButton value="Ajouter">
+						<f:ajax execute="years nature title desc email" render="actList" />
+					</h:commandButton>
 				</h:form>
+
 			</f:view>
 		</ui:define>
 	</ui:composition>

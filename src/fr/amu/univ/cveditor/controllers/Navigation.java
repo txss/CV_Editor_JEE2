@@ -12,15 +12,15 @@ public class Navigation implements Serializable {
 	private static final long serialVersionUID = -9209523733087903449L;
 
 	public String index() {
-		return "index";
+		return "index?faces-redirect=true";
 	}//index()
 
 	public String auth() {
-		return "authenticate";
+		return "authenticate?faces-redirect=true";
 	}//auth()
 
 	public String signIn() {
-		return "signIn";
+		return "signIn?faces-redirect=true";
 	}//signIn()
 
 	public String account() {

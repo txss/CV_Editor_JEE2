@@ -58,14 +58,12 @@
 
 							<ui:repeat var="act" varStatus="s" value="#{c.activites}">
 								<tr>
-									<td>#{s.index}</td>
+									<td>#{act.id}</td>
 									<td>#{act.years}</td>
 									<td>#{act.title}</td>
 									<td>#{act.nature}</td>
 									<td>#{act.description}</td>
 									<td>#{act.email}</td>
-									<td><h:commandLink action="#{activite.update(act.id)}"
-											value="Modifier" /></td>
 								</tr>
 							</ui:repeat>
 

@@ -27,7 +27,7 @@ public class Person {
 	@Column(name = "password")
 	private String password;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Cv cv;
 	
 	/* Constructor */

@@ -40,7 +40,6 @@ public class PersonController implements Serializable {
 		try {
 			pm.create(p);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return nav.index();
 		}
@@ -53,7 +52,7 @@ public class PersonController implements Serializable {
 
 
 	public String show(Person p) {
-		this.p = pm.search(p);
+		this.p = pm.find(p.getEmail());
 		return nav.showPerson();
 	}//show()
 

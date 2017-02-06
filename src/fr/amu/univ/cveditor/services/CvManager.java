@@ -48,12 +48,13 @@ public class CvManager {
 		em.merge(cv);
 	}//update()
 
-	public Cv find(Cv cv) {
-		return em.find(Cv.class, cv.getId());
-	}//find()
-	
+
 	public Cv find(Integer id) {
-		return em.find(Cv.class, id);
+		Cv cv = em.find(Cv.class, id);
+		if(cv.getActivites() != null)
+			cv.getActivites().size();
+		
+		return cv;
 	}//find()
 	
 /*
@@ -61,8 +62,13 @@ public class CvManager {
 		
 	}//search()
 */
-	public void remove(Cv cv) {
-		em.remove(cv);
+	public boolean remove(Integer id) {
+		Cv cv = em.find(Cv.class, id);
+		if(cv != null) {
+			em.remove(cv);
+			return true;
+		}
+		return false;
 	}//remove()
 
 }//CvManager

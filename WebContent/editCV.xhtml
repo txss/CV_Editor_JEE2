@@ -20,19 +20,57 @@
 					<h:panelGrid columns="2">
 						<h:outputLabel for="nameCV">Nom : </h:outputLabel>
 						<h:inputText value="#{c.name}" id="nameCV"></h:inputText>
-						<h:panelGroup>
-							<h:outputText value="Activités : " />
-							<ui:repeat var="a" value="#{c.activites}">
-								<h:outputText>#{a}</h:outputText>
-							</ui:repeat>
-						</h:panelGroup>
 					</h:panelGrid>
 					<h:commandButton action="#{auth.updateConnectedUser}"
 						value="Enregistrer" />
+
+					<h:dataTable value="#{c.activites}" var="a"
+						styleClass="order-table" headerClass="order-table-header"
+						rowClasses="order-table-odd-row,order-table-even-row">
+
+						<h:column>
+							<f:facet name="header">Activité</f:facet>
+    						#{a.id}
+    					</h:column>
+
+						<h:column>
+							<f:facet name="header">Années</f:facet>
+    						#{a.years}
+    					</h:column>
+
+						<h:column>
+							<f:facet name="header">Nature</f:facet>
+    						#{a.nature}
+    					</h:column>
+
+						<h:column>
+							<f:facet name="header">Titre</f:facet>
+    						#{a.title}
+    					</h:column>
+
+						<h:column>
+							<f:facet name="header">Description</f:facet>
+    						#{a.description}
+    					</h:column>
+
+						<h:column>
+							<f:facet name="header">Email</f:facet>
+    						#{a.email}
+    					</h:column>
+    					
+    					<h:column>
+							<f:facet name="header">Editer</f:facet>
+    						<h:commandLink action="#{activite.getActivite(a.id)}">
+    							<span class="glyphicon glyphicon-pencil" />
+    						</h:commandLink>
+    					</h:column>
+					</h:dataTable>
 				</h:form>
+				
 				<br />
 				<br />
-				<c:set var="a" value="#{activite.activite}" />
+				
+				<c:set var="a" value="#{activite.thisActivite}" />
 				<h:form>
 					<h:panelGrid columns="2">
 						<h:outputLabel for="years">Années : </h:outputLabel>
@@ -51,7 +89,8 @@
 						<h:inputText id="email" value="#{a.email}" />
 					</h:panelGrid>
 					<h:commandButton value="Ajouter">
-						<f:ajax execute="@form" listener="#{activite.listener}" render="@form CVform" />
+						<f:ajax execute="@form" listener="#{activite.listener}"
+							render="@form CVform" />
 					</h:commandButton>
 				</h:form>
 			</f:view>

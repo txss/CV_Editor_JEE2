@@ -61,7 +61,7 @@ public class ActiviteController implements Serializable {
 		return activite;
 	}//getActivite()
 
-	public Activite getActivite(Integer index) {
+	public Activite getActivite(int index) {
 		activite = getActivites().get(index);
 		return activite;
 	}//getActivite()
@@ -71,8 +71,8 @@ public class ActiviteController implements Serializable {
 	}//getActivites()
 
 
-	public void remove() {
-		getActivites().remove(activite.getId());
+	public void remove(int index) {
+		getActivites().remove(index);
 	}//remove()
 
 	public void listener(AjaxBehaviorEvent event) {

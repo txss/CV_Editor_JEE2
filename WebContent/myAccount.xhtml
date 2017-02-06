@@ -29,29 +29,33 @@
 				<h:form id="form">
 					<p>Date de naissance :
 					<h:outputText id="bdate" value="#{p.birthdate} " />
-					<h:inputText id="birthdate" value="#{auth.date}"/>
+					<h:inputText id="birthdate" value="#{p.birthdate}"/>
 					<h:commandButton value="Enregistrer">
 						<f:ajax execute="birthdate" render="bdate" />
 					</h:commandButton>
 					</p>
 					
-					<h:outputText value="German:" />
-            <h:outputText value="#{auth.date}">
-                <f:convertDateTime pattern="MM/dd/yyyy" />
-            </h:outputText>
-					
-				<p:outputLabel for="german" value="German:" />
-       			 <p:calendar id="german" value="#{auth.date}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
-					
-				<p:commandButton value="Submit" actionListener="#{auth.click}" icon="ui-icon-check" />
 				</h:form>
 				
 				
 			
 			<p>Email : #{p.email}</p>
+			
+			<h:form>
 				<c:if test='#{p.webSite ne ""}'>
-					<p>Site web : #{p.webSite}</p>
+					<p>Site web : <a href="#{p.webSite}">#{p.webSite} </a></p>
 				</c:if>
+				
+				<c:if test='#{p.webSite eq ""}'>
+					<p> <h:inputText id="website" value="#{p.webSite}"/>
+						<h:commandButton value="Ajouter un site internet">
+							<f:ajax execute="@form" listener="#{auth.listener}" render="@form"/>
+						</h:commandButton>
+					</p>
+				</c:if>
+			</h:form>	
+				
+				
 			</f:view>
 
 			<c:if test="#{p.cv ne null}">

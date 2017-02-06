@@ -8,10 +8,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.primefaces.context.RequestContext;
 
 import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.services.ConnectedUserManager;
@@ -23,7 +23,6 @@ public class AuthenticateController implements Serializable {
 	private static final long serialVersionUID = 6471683296530961330L;
 
 	private Navigation nav = new Navigation();
-	private String date = "";
 	
 	@EJB
 	private ConnectedUserManager um;
@@ -56,15 +55,6 @@ public class AuthenticateController implements Serializable {
 		return um.getUser();
 	}//getConnectedUser()
 	
-	public void setDate(String date){
-		this.date = date;
-		um.setBirthdate(date);
-		updateConnectedUser();
-	}
-	
-	public String getDate(){
-		return getConnectedUser().getBirthdate();
-	}
 	
 	public String updateConnectedUser() {
 		um.getUser().setCv(cvController.getCv());
@@ -85,13 +75,10 @@ public class AuthenticateController implements Serializable {
 			cNav.performNavigation("authenticate.xhtml");
 		}
 	}//redirectToAuth()
-
-	public void click() {
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-         System.out.println("click");
-        requestContext.update("form:display");
-        requestContext.execute("PF('dlg').show()");
-    }
 	
+	
+	public void listener(AjaxBehaviorEvent event) {
+		updateConnectedUser();
+	}//listener()
 	
 }//AuthentificationController()

@@ -36,7 +36,7 @@ public class CvController implements Serializable {
 	}//findAll()
 	
 	public String remove() {
-		cvm.remove(cv.getId());
+		System.out.println(cvm.remove(cv.getId()));
 		return nav.account();
 	}//remove()
 	

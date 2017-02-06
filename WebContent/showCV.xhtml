@@ -27,8 +27,12 @@
 				<h:outputText value="#{c.name}" />
 			</h2>
 			<h3>
-				<h:link outcome="#{cv.edit()}">Editer mon cv <span
+				<h:link outcome="#{cv.edit()}">Editer mon CV <span
 						class="glyphicon glyphicon-pencil" />
+				</h:link>
+				
+				<h:link outcome="#{cv.remove()}">Supprimer mon CV <span
+						class="glyphicon glyphicon-remove" />
 				</h:link>
 			</h3>
 			<h:dataTable value="#{c.activites}" var="a" styleClass="order-table"

@@ -48,7 +48,7 @@ public class ActiviteController implements Serializable {
 		return false;
 	}//exist()
 
-	private void store() {
+	private void save() {
 		if(exist())
 			getActivites().set(activite.getId(), activite);
 		else
@@ -70,13 +70,12 @@ public class ActiviteController implements Serializable {
 		return currentCv.getCv().getActivites();
 	}//getActivites()
 
-
 	public void remove(int index) {
 		getActivites().remove(index);
 	}//remove()
 
 	public void listener(AjaxBehaviorEvent event) {
-		store();
+		save();
 		newActivite();
 	}//listener()
 

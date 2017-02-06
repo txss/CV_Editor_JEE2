@@ -17,10 +17,10 @@ public class ActiviteController implements Serializable {
 	private static final long serialVersionUID = -6927463438834842300L;
 
 	private Activite activite = new Activite(); 
-	
+
 	@ManagedProperty(value = "#{cv}")
 	private CvController currentCv;
-	
+
 	@ManagedProperty(value = "#{auth}")
 	private AuthenticateController auth;
 
@@ -28,30 +28,17 @@ public class ActiviteController implements Serializable {
 	public void setCvController(CvController cvController) {
 		this.currentCv = cvController;
 	}//setCvController()
-	
+
 	//must povide the setter method
-		public void setAuthenticateController(AuthenticateController AuthController) {
-			this.auth = AuthController;
-		}//setCvController()
+	public void setAuthenticateController(AuthenticateController AuthController) {
+		this.auth = AuthController;
+	}//setCvController()
 
-	/* Members Methods */
-	public Activite getActivite() {
-		return activite;
-	}//getActivite()
 
-	public Activite getActivite(int index) {
-		activite = getActivites().get(index);
-		return activite;
-	}//getActivite()
-	
-	public void newActivite() {
+	private void newActivite() {
 		activite = new Activite();
 	}//newActivity()
 
-	public List<Activite> getActivites() {
-		return currentCv.getCv().getActivites();
-	}//getActivites()
-	
 	private boolean exist() {
 		for(int i = 0 ; i < getActivites().size() ; ++i) {
 			if(getActivites().get(i).getId() == activite.getId()) {
@@ -60,19 +47,34 @@ public class ActiviteController implements Serializable {
 		}
 		return false;
 	}//exist()
-	
-	public void store() {
+
+	private void store() {
 		if(exist())
 			getActivites().set(activite.getId(), activite);
 		else
 			getActivites().add(activite);
 	}//store()
-
 	
+
+	/* Members Methods */
+	public Activite getThisActivite() {
+		return activite;
+	}//getActivite()
+
+	public Activite getActivite(Integer index) {
+		activite = getActivites().get(index);
+		return activite;
+	}//getActivite()
+
+	public List<Activite> getActivites() {
+		return currentCv.getCv().getActivites();
+	}//getActivites()
+
+
 	public void remove() {
 		getActivites().remove(activite.getId());
 	}//remove()
-	
+
 	public void listener(AjaxBehaviorEvent event) {
 		store();
 		newActivite();

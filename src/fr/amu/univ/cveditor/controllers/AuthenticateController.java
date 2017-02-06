@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.primefaces.context.RequestContext;
 
 import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.services.ConnectedUserManager;
@@ -21,7 +22,8 @@ public class AuthenticateController implements Serializable {
 	private static final long serialVersionUID = 6471683296530961330L;
 
 	private Navigation nav = new Navigation();
-
+	private String date = "";
+	
 	@EJB
 	private ConnectedUserManager um;
 
@@ -42,8 +44,21 @@ public class AuthenticateController implements Serializable {
 		return um.getUser();
 	}//getConnectedUser()
 	
+	public void setDate(String date){
+		this.date = date;
+		um.setBirthdate(date);
+		updateConnectedUser();
+	}
+	
+	public String getDate(){
+		return getConnectedUser().getBirthdate();
+	}
+	
 	public void updateConnectedUser() {
-		um.updateUser();
+		System.out.println("updateeeeeeeee");
+//		String birth = getConnectedUser().getBirthdate();
+//		um.setBirthdate(birth);
+//		um.updateUser();
 	}//updateConnectedUser()
 	
 
@@ -58,4 +73,12 @@ public class AuthenticateController implements Serializable {
 		}
 	}//redirectToAuth()
 
+	public void click() {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+         System.out.println("click");
+        requestContext.update("form:display");
+        requestContext.execute("PF('dlg').show()");
+    }
+	
+	
 }//AuthentificationController()

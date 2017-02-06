@@ -48,4 +48,10 @@ public class ConnectedUserManager {
 		pm.update(p);
 	}//updateUser()
 	
+	public void setBirthdate(String birthdate){
+		this.p.setBirthdate(birthdate);
+		updateUser();
+	}
+	
+	
 }//ConnectedUserManager()

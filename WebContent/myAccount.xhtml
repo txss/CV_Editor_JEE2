@@ -5,6 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <f:metadata>
@@ -24,7 +25,30 @@
 			<f:view>
 				<p>Bonjour #{p.firstName} #{p.name}</p>
 				<h4>Mes informations personnelles </h4>
-				<p>Date de naissance : #{p.birthdate} </p>
+				
+				<h:form id="form">
+					<p>Date de naissance :
+					<h:outputText id="bdate" value="#{p.birthdate} " />
+					<h:inputText id="birthdate" value="#{auth.date}"/>
+					<h:commandButton value="Enregistrer">
+						<f:ajax execute="birthdate" render="bdate" />
+					</h:commandButton>
+					</p>
+					
+					<h:outputText value="German:" />
+            <h:outputText value="#{auth.date}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+					
+				<p:outputLabel for="german" value="German:" />
+       			 <p:calendar id="german" value="#{calendarView.date5}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+					
+				<p:commandButton value="Submit" actionListener="#{auth.click}" icon="ui-icon-check" />
+				</h:form>
+				
+				
+			
+			<p>Email : #{p.email}</p>
 				<c:if test='#{p.webSite ne ""}'>
 					<p>Site web : #{p.webSite}</p>
 				</c:if>

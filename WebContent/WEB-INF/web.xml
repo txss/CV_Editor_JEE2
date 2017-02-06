@@ -44,7 +44,8 @@
 		<param-value>false</param-value>
 	</context-param>
 
-	<error-page>
-		<location>/index.jsp</location>
-	</error-page>
+    <error-page>
+        <location>/index.xtml</location>
+    </error-page>
+      
 </web-app>

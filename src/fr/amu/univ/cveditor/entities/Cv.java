@@ -51,7 +51,7 @@ public class Cv {
 		return 	"\nId-> " + this.id + 
 				"\nName-> " + this.name +
 				"\nActivites-> " + this.activites +
-				"\nPerson-> " + this.person;
+				"\nOwner -> " + this.person.getFirstName() + " " + this.person.getName();
 	}//toString()
 	
 

@@ -2,12 +2,14 @@ package fr.amu.univ.cveditor.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 
 @Embeddable
 @Table(name = "ACTIVITE")
 public class Activite {
 
+	@GeneratedValue
 	@Column(name = "id")
 	private int id;
 	@Column(name = "years")

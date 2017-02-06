@@ -17,44 +17,43 @@
 
 				<c:set var="c" value="#{cv.cv}" />
 				<h:form id="CVform">
-					<!-- <h:inputHidden value="#{c.setPerson(auth.connectedUser)}"/> -->
 					<h:panelGrid columns="2">
 						<h:outputLabel for="nameCV">Nom : </h:outputLabel>
 						<h:inputText value="#{c.name}" id="nameCV"></h:inputText>
-						<h:panelGroup id="actList">
+						<h:panelGroup>
 							<h:outputText value="Activités : " />
-							<c:forEach var="a" items="#{activite.getActivites()}">
-								<h:outputLink action="#{activite.getActivite(a.id)}"
-									value="Activité n°#{a.id}" />
-							</c:forEach>
+							<ui:repeat var="a" value="#{c.activites}">
+								<h:outputText>#{a}</h:outputText>
+							</ui:repeat>
 						</h:panelGroup>
 					</h:panelGrid>
-					<h:commandButton action="#{cv.store}" value="Enregistrer"></h:commandButton>
-
-					<br />
-					<br />
+					<h:commandButton action="#{auth.updateConnectedUser}"
+						value="Enregistrer" />
+				</h:form>
+				<br />
+				<br />
+				<c:set var="a" value="#{activite.activite}" />
+				<h:form>
 					<h:panelGrid columns="2">
 						<h:outputLabel for="years">Années : </h:outputLabel>
-						<h:inputText id="years" value="#{activite.activite.years}" />
+						<h:inputText id="years" value="#{a.years}" />
 
 						<h:outputLabel for="nature">Nature : </h:outputLabel>
-						<h:inputText id="nature" value="#{activite.activite.nature}" />
+						<h:inputText id="nature" value="#{a.nature}" />
 
 						<h:outputLabel for="title">Titre : </h:outputLabel>
-						<h:inputText id="title" value="#{activite.activite.title}" />
+						<h:inputText id="title" value="#{a.title}" />
 
 						<h:outputLabel for="desc">Description : </h:outputLabel>
-						<h:inputTextarea id="desc"
-							value="#{activite.activite.description}" />
+						<h:inputTextarea id="desc" value="#{a.description}" />
 
 						<h:outputLabel for="email">Email : </h:outputLabel>
-						<h:inputText id="email" value="#{activite.activite.email}" />
+						<h:inputText id="email" value="#{a.email}" />
 					</h:panelGrid>
 					<h:commandButton value="Ajouter">
-						<f:ajax execute="years nature title desc email" render="actList" />
+						<f:ajax execute="@form" listener="#{activite.listener}" render="@form CVform" />
 					</h:commandButton>
 				</h:form>
-
 			</f:view>
 		</ui:define>
 	</ui:composition>

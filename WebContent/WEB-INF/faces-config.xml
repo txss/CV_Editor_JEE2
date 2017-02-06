@@ -5,19 +5,20 @@
       http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	version="2.2">
 
-	<managed-bean>
-		<managed-bean-name>auth</managed-bean-name>
-		<managed-bean-class>fr.amu.univ.cveditor.controllers.AuthenticateController</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
 
 	<managed-bean>
 		<managed-bean-name>cv</managed-bean-name>
 		<managed-bean-class>fr.amu.univ.cveditor.controllers.CvController</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>auth</managed-bean-name>
+		<managed-bean-class>fr.amu.univ.cveditor.controllers.AuthenticateController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 		<managed-property>
-			<property-name>authenticateController</property-name>
-			<value>#{auth}</value>
+			<property-name>cvController</property-name>
+			<value>#{cv}</value>
 		</managed-property>
 	</managed-bean>
 
@@ -29,6 +30,11 @@
 			<property-name>cvController</property-name>
 			<value>#{cv}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>authenticateController</property-name>
+			<value>#{auth}</value>
+		</managed-property>
+
 	</managed-bean>
 
 </faces-config>

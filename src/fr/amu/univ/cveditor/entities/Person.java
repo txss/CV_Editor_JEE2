@@ -57,7 +57,8 @@ public class Person {
 				"\nName-> " + this.name +
 				"\nFirstname-> " + this.firstName +
 				"\nBirthdate-> " + this.birthdate +
-				"\nWebsite->" + this.webSite;
+				"\nWebsite->" + this.webSite +
+				"\nCV : " + this.cv;
 	}//toString()
 	
 }//Person

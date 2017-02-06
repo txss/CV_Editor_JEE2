@@ -65,13 +65,21 @@ public class PersonManager {
 	}//update()
 
 	public Person find(String email) {
-		return em.find(Person.class, email);
+		Person p = em.find(Person.class, email);
+		if(p != null)
+			if(p.getCv() != null) {
+				p.getCv().getId();
+				if(p.getCv().getActivites() != null) {
+					p.getCv().getActivites().size();
+				}
+			}
+		return p;
 	}//find()
 
-	public Person search(Person p) {
-		return em.find(Person.class, p.getEmail());
+	/*public Person search(Person p) {
+		
 	}//search()
-
+	*/
 	public boolean remove(String email) {
 		Person person = em.find(Person.class, email);
 		if(person != null) {

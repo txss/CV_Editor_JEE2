@@ -3,7 +3,6 @@ package fr.amu.univ.cveditor.services;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -13,9 +12,6 @@ import fr.amu.univ.cveditor.entities.Cv;
 
 @Stateful(name="cvManager", description = "Manager d'entités pour les CV")
 public class CvManager {
-
-	@EJB
-	private ConnectedUserManager um;
 
 	@PersistenceContext(unitName = "myPGSQLBase")
 	private EntityManager em;
@@ -52,12 +48,13 @@ public class CvManager {
 		em.merge(cv);
 	}//update()
 
-	public Cv find(Cv cv) {
-		return em.find(Cv.class, cv.getId());
-	}//find()
-	
+
 	public Cv find(Integer id) {
-		return em.find(Cv.class, id);
+		Cv cv = em.find(Cv.class, id);
+		if(cv.getActivites() != null)
+			cv.getActivites().size();
+		
+		return cv;
 	}//find()
 	
 /*
@@ -65,8 +62,13 @@ public class CvManager {
 		
 	}//search()
 */
-	public void remove(Cv cv) {
-		em.remove(cv);
+	public boolean remove(Integer id) {
+		Cv cv = em.find(Cv.class, id);
+		if(cv != null) {
+			em.remove(cv);
+			return true;
+		}
+		return false;
 	}//remove()
 
 }//CvManager

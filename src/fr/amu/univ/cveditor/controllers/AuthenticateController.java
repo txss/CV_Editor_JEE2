@@ -1,9 +1,11 @@
 package fr.amu.univ.cveditor.controllers;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -38,11 +40,18 @@ public class AuthenticateController implements Serializable {
 	
 
 	public String login(String login, String pwd) {
-		return um.login(login, DigestUtils.sha256Hex(pwd)) != null ? 
-				nav.account() : nav.auth();
+		Person user = um.login(login, DigestUtils.sha256Hex(pwd));
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		if (user == null) {
+			context.addMessage(null, new FacesMessage("Unknown login, try again"));
+			return null;
+		}
+		return nav.account();
 	}//login()
 
-	public String logout() {
+	public String logout() throws IOException {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		um.logout();
 		return nav.auth();
 	}//logout()

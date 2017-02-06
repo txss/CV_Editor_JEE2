@@ -19,14 +19,12 @@ public class ConnectedUserManager {
 	
 	@PostConstruct 
 	public void init(){
-		System.out.println("A user is connecting...");
 	}//init()
 	
 	@Remove
 	public void close() {
-		System.out.println(this.p.getFirstName() + " " + this.p.getName() 
-								+ " deconnected.");
 	}//close()
+	
 	
 	/* Getter */
 	public Person getUser() { 

@@ -34,11 +34,7 @@
 					<h:outputText id="bdate" value="#{p.birthdate} " />
 				</p>
 					
-				
-				
-			
 				<p>Email : #{p.email}</p>
-			
 			
 				<c:if test='#{p.webSite ne ""}'>
 					<p>Site web : <a href="#{p.webSite}">#{p.webSite} </a>
@@ -89,9 +85,9 @@
 			<c:if test="#{p.cv ne null}">
 				<f:view>
 					<h:form>
-						<h:link outcome="#{cv.show(auth.connectedUser.cv.id)}">Voir mon CV <span
+						<h:commandLink action="#{cv.show(auth.connectedUser.cv)}">Voir mon CV <span
 								class="glyphicon glyphicon-eye-open" />
-						</h:link>
+						</h:commandLink>
 					</h:form>
 				</f:view>
 			</c:if>

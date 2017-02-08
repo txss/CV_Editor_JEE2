@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import fr.amu.univ.cveditor.entities.Cv;
+import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.services.CvManager;
 
 @ManagedBean(name="cv")
@@ -36,13 +37,22 @@ public class CvController implements Serializable {
 	}//findAll()
 	
 	public String remove() {
-		System.out.println(cvm.remove(cv.getId()));
+//		if(p.getCv() == null)
+//			return nav.account();
+		Cv newCv = new Cv();
+		Person p = cv.getPerson();
+		newCv.setId(p.getCv().getId());
+		cvm.remove(newCv, p);
+		
 		return nav.account();
 	}//remove()
 	
-	
-	public String show(Integer id) {
-		cv = cvm.find(id);
+
+	public String show(Cv cvToRemove) {
+		if(cvToRemove == null)
+			return nav.editCv();
+		
+		cv = cvm.find(cvToRemove.getId());
 		return nav.showCV();
 	}//show()
 	

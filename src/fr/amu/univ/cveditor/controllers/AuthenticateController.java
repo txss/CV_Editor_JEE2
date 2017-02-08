@@ -26,7 +26,6 @@ public class AuthenticateController implements Serializable {
 	private static final long serialVersionUID = 6471683296530961330L;
 
 	private Navigation nav = new Navigation();
-	private String date;
 	@EJB
 	private ConnectedUserManager um;
 	
@@ -38,26 +37,6 @@ public class AuthenticateController implements Serializable {
 		this.cvController = cvController;
 	}//setCvController()
 	
-	
-	
-	
-
-	public String getDate() {
-		return date;
-	}
-
-
-
-
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-
-
-
-
 	public String login(String login, String pwd) {
 		Person user = um.login(login, DigestUtils.sha256Hex(pwd));
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -91,13 +70,6 @@ public class AuthenticateController implements Serializable {
 		return nav.showCV();
 	}//updateConnectedUser()
 	
-	public String updateConnectedUserInfos() {
-		um.getUser().setCv(cvController.getCv());
-		um.updateUser();
-		
-		return nav.account();
-	}//updateConnectedUser()
-
 	public void redirectToAuth(ComponentSystemEvent event) {
 		if(!isConnected()) {
 			FacesContext fc = FacesContext.getCurrentInstance();

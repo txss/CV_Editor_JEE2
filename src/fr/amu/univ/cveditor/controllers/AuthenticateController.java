@@ -73,7 +73,7 @@ public class AuthenticateController implements Serializable {
 		return nav.showCV();
 	}//updateConnectedUser()
 	
-
+	/* Listeners */
 	public void redirectToAuth(ComponentSystemEvent event) {
 		if(!isConnected()) {
 			FacesContext fc = FacesContext.getCurrentInstance();

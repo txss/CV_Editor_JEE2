@@ -63,9 +63,9 @@
 					<h1>Mon cv</h1>
 					<h3>->#{p.cv.name}</h3>
 					<h:form>
-						<h:link outcome="#{cv.show(auth.connectedUser.cv.id)}">Voir mon CV <span
+						<h:commandLink action="#{cv.show(auth.connectedUser.cv)}">Voir mon CV <span
 								class="glyphicon glyphicon-eye-open" />
-						</h:link>
+						</h:commandLink>
 					</h:form>
 				</f:view>
 			</c:if>

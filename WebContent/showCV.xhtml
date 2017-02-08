@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-	
+
 <f:metadata>
 	<f:event listener="#{auth.redirectToAuth}" type="preRenderView" />
 </f:metadata>
@@ -27,13 +27,15 @@
 				<h:outputText value="#{c.name}" />
 			</h2>
 			<h3>
-				<h:link outcome="#{cv.edit()}">Editer mon CV <span
-						class="glyphicon glyphicon-pencil" />
-				</h:link>
-				
-				<h:link outcome="#{cv.remove()}">Supprimer mon CV <span
-						class="glyphicon glyphicon-remove" />
-				</h:link>
+				<h:form>
+					<h:commandLink action="#{cv.edit()}">Editer mon CV <span
+							class="glyphicon glyphicon-pencil" />
+					</h:commandLink>
+
+					<h:commandLink action="#{cv.remove()}">Supprimer mon CV <span
+							class="glyphicon glyphicon-remove" />
+					</h:commandLink>
+				</h:form>
 			</h3>
 			<h:dataTable value="#{c.activites}" var="a" styleClass="order-table"
 				headerClass="order-table-header"

@@ -17,33 +17,32 @@
 		<ui:define name="title">Cv Editor Profil</ui:define>
 
 		<ui:define name="content">
+			
 			<h1>
 				<h:outputText value="Mon profil" />
+				<a href="javascript:$( '#editForm' ).show();"><span class="glyphicon glyphicon-pencil"></span></a>
 			</h1>
+			
 
 			<c:set var="p" value="#{auth.connectedUser}" />
 			<f:view>
+			<h:form id="person_form">
 				<p>Bonjour #{p.firstName} #{p.name}</p>
-				<h4>Mes informations personnelles </h4>
+				<h4>Vos informations personnelles </h4>
 				
-				<h:form id="form">
-					<p>Date de naissance :
+				<p>Date de naissance :
 					<h:outputText id="bdate" value="#{p.birthdate} " />
-					<h:inputText id="birthdate" value="#{p.birthdate}"/>
-					<h:commandButton value="Enregistrer">
-						<f:ajax execute="birthdate" render="bdate" />
-					</h:commandButton>
-					</p>
+				</p>
 					
-				</h:form>
 				
 				
 			
-			<p>Email : #{p.email}</p>
+				<p>Email : #{p.email}</p>
 			
-			<h:form>
+			
 				<c:if test='#{p.webSite ne ""}'>
-					<p>Site web : <a href="#{p.webSite}">#{p.webSite} </a></p>
+					<p>Site web : <a href="#{p.webSite}">#{p.webSite} </a>
+					</p>
 				</c:if>
 				
 				<c:if test='#{p.webSite eq ""}'>
@@ -54,14 +53,41 @@
 					</p>
 				</c:if>
 			</h:form>	
-				
-				
 			</f:view>
+			
+			<div id="editForm" hidden="true">
+				<f:view>
+					<h:form>
+						<h:panelGrid columns="2">
+							<p:outputLabel for="firstName" value="Nom :" />
+							<p:inputText id="firstName" value="#{p.firstName}" />
+							
+							<p:outputLabel for="name" value="Prènom:" />
+							<p:inputText id="name" value="#{p.name}" />
+						
+					
+							<p:outputLabel for="birthdate" value="Date de naissance :" />
+							<p:inputMask id="birthdate" value="#{p.birthdate}" mask="99/99/9999"/>
+							
+							<p:outputLabel for="email" value="Email :" />
+							<p:inputText id="email" value="#{p.email}" />
+		
+							<p:outputLabel for="website" value="Site internet :" />
+							<h:inputText id="website" value="#{p.webSite}" />
+						</h:panelGrid>
+						
+						<h:commandButton value="Enregistrer">
+							<f:ajax execute="@form" listener="#{auth.listener}"
+							render="@form person_form" />
+						</h:commandButton>
+						
+					</h:form>
+				</f:view>
+			</div>
+							    
 
 			<c:if test="#{p.cv ne null}">
 				<f:view>
-					<h1>Mon cv</h1>
-					<h3>->#{p.cv.name}</h3>
 					<h:form>
 						<h:link outcome="#{cv.show(auth.connectedUser.cv.id)}">Voir mon CV <span
 								class="glyphicon glyphicon-eye-open" />
@@ -69,12 +95,13 @@
 					</h:form>
 				</f:view>
 			</c:if>
+			
 			<c:if test="#{p.cv eq null}">
 				<h:form>
 					<h:commandLink action="#{cv.newCv()}" value="Créer votre CV" />
 				</h:form>
 			</c:if>
-
+			
 		</ui:define>
 
 	</ui:composition>

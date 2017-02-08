@@ -14,6 +14,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.primefaces.context.RequestContext;
 
 import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.services.ConnectedUserManager;
@@ -25,19 +26,37 @@ public class AuthenticateController implements Serializable {
 	private static final long serialVersionUID = 6471683296530961330L;
 
 	private Navigation nav = new Navigation();
-	
+	private String date;
 	@EJB
 	private ConnectedUserManager um;
 	
 	@ManagedProperty(value = "#{cv}")
 	private CvController cvController;
 	
-	
 	//must povide the setter method
 	public void setCvController(CvController cvController) {
 		this.cvController = cvController;
 	}//setCvController()
 	
+	
+	
+	
+
+	public String getDate() {
+		return date;
+	}
+
+
+
+
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+
+
+
 
 	public String login(String login, String pwd) {
 		Person user = um.login(login, DigestUtils.sha256Hex(pwd));
@@ -64,7 +83,6 @@ public class AuthenticateController implements Serializable {
 		return um.getUser();
 	}//getConnectedUser()
 	
-	
 	public String updateConnectedUser() {
 		um.getUser().setCv(cvController.getCv());
 		
@@ -73,6 +91,12 @@ public class AuthenticateController implements Serializable {
 		return nav.showCV();
 	}//updateConnectedUser()
 	
+	public String updateConnectedUserInfos() {
+		um.getUser().setCv(cvController.getCv());
+		um.updateUser();
+		
+		return nav.account();
+	}//updateConnectedUser()
 
 	public void redirectToAuth(ComponentSystemEvent event) {
 		if(!isConnected()) {
@@ -85,9 +109,11 @@ public class AuthenticateController implements Serializable {
 		}
 	}//redirectToAuth()
 	
-	
 	public void listener(AjaxBehaviorEvent event) {
 		updateConnectedUser();
+		RequestContext requestContext = RequestContext.getCurrentInstance();  
+		requestContext.execute("$( '#editForm' ).hide()");
 	}//listener()
+	
 	
 }//AuthentificationController()

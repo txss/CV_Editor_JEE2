@@ -1,5 +1,6 @@
 package fr.amu.univ.cveditor.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import fr.amu.univ.cveditor.entities.Activite;
 import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.exceptions.BadPerson;
 
@@ -60,8 +62,8 @@ public class PersonManager {
 
 	}//create()
 
-	public void update(Person p) {
-		em.merge(p);
+	public Person update(Person p) {
+		return em.merge(p);
 	}//update()
 
 	public Person find(String email) {
@@ -69,9 +71,13 @@ public class PersonManager {
 		if(p != null)
 			if(p.getCv() != null) {
 				p.getCv().getId();
+				p.getCv().getName();
+				
 				if(p.getCv().getActivites() != null) {
 					p.getCv().getActivites().size();
 				}
+				else
+					p.getCv().setActivites(new ArrayList<Activite>());
 			}
 		return p;
 	}//find()
@@ -80,7 +86,7 @@ public class PersonManager {
 		
 	}//search()
 	*/
-	public boolean remove(String email) {
+	/*public boolean remove(String email) {
 		Person person = em.find(Person.class, email);
 		if(person != null) {
 			em.remove(person);
@@ -88,5 +94,5 @@ public class PersonManager {
 		}
 		return false;
 	}//remove()
-
+*/
 }//PersonManager

@@ -3,15 +3,16 @@ package fr.amu.univ.cveditor.controllers;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import fr.amu.univ.cveditor.entities.Activite;
 
 @ManagedBean(name = "activite")
-@RequestScoped
+@ViewScoped
 public class ActiviteController implements Serializable {
 
 	private static final long serialVersionUID = -6927463438834842300L;
@@ -21,22 +22,20 @@ public class ActiviteController implements Serializable {
 	@ManagedProperty(value = "#{cv}")
 	private CvController currentCv;
 
-	@ManagedProperty(value = "#{auth}")
-	private AuthenticateController auth;
-
 	//must povide the setter method
 	public void setCvController(CvController cvController) {
 		this.currentCv = cvController;
 	}//setCvController()
 
-	//must povide the setter method
-	public void setAuthenticateController(AuthenticateController AuthController) {
-		this.auth = AuthController;
-	}//setCvController()
+	
+	@PostConstruct
+	public void init() {
+	}//init()
 
 
 	private void newActivite() {
 		activite = new Activite();
+		activite.setId(getActivites().size());
 	}//newActivity()
 
 	private boolean exist() {
@@ -51,8 +50,9 @@ public class ActiviteController implements Serializable {
 	private void save() {
 		if(exist())
 			getActivites().set(activite.getId(), activite);
-		else
+		else {
 			getActivites().add(activite);
+		}
 	}//store()
 	
 
@@ -75,8 +75,9 @@ public class ActiviteController implements Serializable {
 	}//remove()
 
 	public void listener(AjaxBehaviorEvent event) {
-		save();
-		newActivite();
+		System.out.println(getActivites());
+//		save();
+//		newActivite();
 	}//listener()
 
 }//ActiviteController

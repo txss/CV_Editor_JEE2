@@ -34,16 +34,16 @@ public class ConnectedUserManager {
 	
 	/* Members methods */
 	public Person login(String login, String password) {
-		this.p = auth.login(login, password);
-		return this.p;
+		p = auth.login(login, password);
+		return p;
 	}//login()
 	
 	public void logout() {
 		this.p = null;
 	}//logout()
 	
-	public void updateUser() {
-		pm.update(p);
+	public Person updateUser() {
+		return pm.update(p);
 	}//updateUser()
 	
 	public void setBirthdate(String birthdate){

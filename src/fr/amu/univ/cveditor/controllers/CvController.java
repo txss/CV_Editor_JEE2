@@ -3,25 +3,45 @@ package fr.amu.univ.cveditor.controllers;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import fr.amu.univ.cveditor.entities.Cv;
-import fr.amu.univ.cveditor.entities.Person;
 import fr.amu.univ.cveditor.services.CvManager;
 
 @ManagedBean(name="cv")
 @SessionScoped
 public class CvController implements Serializable {
-	
-	@EJB
-	private CvManager cvm;
-	
 	private static final long serialVersionUID = 3314456687259986660L;
 	
 	private Cv cv = new Cv();
 	private Navigation nav = new Navigation();
+	
+	@EJB
+	private CvManager cvm;
+	
+	@ManagedProperty(value = "#{auth}")
+	private AuthenticateController auth;
+	
+	public AuthenticateController getAuthenticateController() {
+		return auth;
+	}//getAuthenticateController()
+	public void setAuthenticateController(AuthenticateController AuthController) {
+		this.auth = AuthController;
+	}//setCvController()
+	
+	@PostConstruct
+	public void init() {
+		System.out.println("------------------INIT------------------");
+		System.out.println(auth.getConnectedUser().getEmail());
+		if(auth.getConnectedUser().getCv() != null)
+			System.out.println(auth.getConnectedUser().getCv().getId());
+	}//init()
+	
+	
 	
 	/* Members Methods */
 	public Cv getCv() {
@@ -36,33 +56,56 @@ public class CvController implements Serializable {
 		return cvm.listAll();
 	}//findAll()
 	
-	public String remove() {
-//		if(p.getCv() == null)
-//			return nav.account();
-		Cv newCv = new Cv();
-		Person p = cv.getPerson();
-		newCv.setId(p.getCv().getId());
-		cvm.remove(newCv, p);
-		
-		return nav.account();
-	}//remove()
 	
 
-	public String show(Cv cvToRemove) {
-		if(cvToRemove == null)
-			return nav.editCv();
+	public String show() {
+		System.out.println("------------------SHOW------------------");
+		System.out.println(auth.getConnectedUser().getCv().getId());
 		
-		cv = cvm.find(cvToRemove.getId());
+		cv = cvm.find(auth.getConnectedUser().getCv().getId());
 		return nav.showCV();
 	}//show()
 	
 	public String edit() {
 		return nav.editCv();
 	}//editCv()
+	
+	public String store() {
+		System.out.println("------------------STORE------------------");
+		System.out.println(cv.getId());
+		
+		auth.getConnectedUser().setCv(cv);
+		
+		System.out.println(auth.getConnectedUser().getCv().getId());
+		
+		auth.updateConnectedUser();
+		
+		return nav.showCV();
+	}//store()
 
 	public String newCv() {
-		cv = new Cv();
+		System.out.println("------------------NEW CV------------------");
+
+		cv = cvm.newInstance();
+		auth.getConnectedUser().setCv(cv);
+		
+		System.out.println(cv.getId());
+		System.out.println(auth.getConnectedUser().getCv().getId());
 		return nav.editCv();
 	}//newCv()
+	
+	public String remove() {
+		System.out.println("------------------REMOVE------------------");
+		System.out.println(auth.getConnectedUser().getEmail());
+		System.out.println(auth.getConnectedUser().getCv().getId());
+		
+		String emailPerson = auth.getConnectedUser().getEmail();
+		Integer idCv = auth.getConnectedUser().getCv().getId();
+		
+		auth.getConnectedUser().setCv(null);
+		
+		cvm.remove(idCv, emailPerson);
+		return nav.account();
+	}//remove()
 	
 }//CvController

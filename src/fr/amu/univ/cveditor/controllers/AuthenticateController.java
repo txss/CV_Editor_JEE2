@@ -3,11 +3,11 @@ package fr.amu.univ.cveditor.controllers;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -26,23 +26,22 @@ public class AuthenticateController implements Serializable {
 	private static final long serialVersionUID = 6471683296530961330L;
 
 	private Navigation nav = new Navigation();
+	
 	@EJB
 	private ConnectedUserManager um;
 	
-	@ManagedProperty(value = "#{cv}")
-	private CvController cvController;
+	@PostConstruct
+	public void init() {
+		
+	}//init()
 	
-	//must povide the setter method
-	public void setCvController(CvController cvController) {
-		this.cvController = cvController;
-	}//setCvController()
 	
 	public String login(String login, String pwd) {
 		Person user = um.login(login, DigestUtils.sha256Hex(pwd));
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		if (user == null) {
-			context.addMessage(null, new FacesMessage("Unknown login, try again"));
+			context.addMessage(null, new FacesMessage("Login ou mot de passe incorrect, Veuillez réessayer"));
 			return null;
 		}
 		return nav.account();
@@ -62,14 +61,12 @@ public class AuthenticateController implements Serializable {
 		return um.getUser();
 	}//getConnectedUser()
 	
-	public String updateConnectedUser() {
-		um.getUser().setCv(cvController.getCv());
-		
-		um.updateUser();
-		
-		return nav.showCV();
+	public Person updateConnectedUser() {
+		return um.updateUser();
 	}//updateConnectedUser()
 	
+	
+	/* Listeners */
 	public void redirectToAuth(ComponentSystemEvent event) {
 		if(!isConnected()) {
 			FacesContext fc = FacesContext.getCurrentInstance();

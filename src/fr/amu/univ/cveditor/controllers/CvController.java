@@ -67,6 +67,7 @@ public class CvController implements Serializable {
 	}//show()
 	
 	public String edit() {
+		cv = cvm.find(auth.getConnectedUser().getCv().getId());
 		return nav.editCv();
 	}//editCv()
 	
@@ -86,7 +87,7 @@ public class CvController implements Serializable {
 	public String newCv() {
 		System.out.println("------------------NEW CV------------------");
 
-		cv = cvm.newInstance();
+		cv = new Cv();
 		auth.getConnectedUser().setCv(cv);
 		
 		System.out.println(cv.getId());

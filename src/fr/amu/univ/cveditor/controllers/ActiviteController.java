@@ -32,24 +32,36 @@ public class ActiviteController implements Serializable {
 	public void init() {
 	}//init()
 
+	private int getHighestActivityId() {
+		int id = 0;
+		for(int i = 0 ; i < getActivites().size() ; ++i) {
+			if(getActivites().get(i).getId() > id)
+				id = getActivites().get(i).getId();
+		}
+		return id;
+	}//getHighestActivityId()
 
 	private void newActivite() {
 		activite = new Activite();
-		activite.setId(getActivites().size());
+		System.out.println(getActivites().size());
+		if(getActivites().isEmpty())
+			activite.setId(1);
+		activite.setId(getHighestActivityId() + 1);
 	}//newActivity()
 
-	private boolean exist() {
+	private int exist(int idAct) {
 		for(int i = 0 ; i < getActivites().size() ; ++i) {
-			if(getActivites().get(i).getId() == activite.getId()) {
-				return true;
+			if(getActivites().get(i).getId() == idAct) {
+				return i;
 			}
 		}
-		return false;
+		return -1;
 	}//exist()
 
 	private void save() {
-		if(exist())
+		if(exist(activite.getId()) > 0) {
 			getActivites().set(activite.getId(), activite);
+		}
 		else {
 			getActivites().add(activite);
 		}
@@ -70,14 +82,14 @@ public class ActiviteController implements Serializable {
 		return currentCv.getCv().getActivites();
 	}//getActivites()
 
-	public void remove(int index) {
-		getActivites().remove(index);
+	public void remove(Integer idAct) {
+		getActivites().remove(exist(idAct));
 	}//remove()
 
 	public void listener(AjaxBehaviorEvent event) {
 		System.out.println(getActivites());
-//		save();
-//		newActivite();
+		save();
+		newActivite();
 	}//listener()
 
 }//ActiviteController

@@ -43,13 +43,14 @@ public class ConnectedUserManager {
 	}//logout()
 	
 	public Person updateUser() {
-		return pm.update(p);
+		p = pm.update(p);
+		return p;
 	}//updateUser()
 	
 	public void setBirthdate(String birthdate){
 		this.p.setBirthdate(birthdate);
 		updateUser();
-	}
+	}//setBirthdate()
 	
 	
 }//ConnectedUserManager()

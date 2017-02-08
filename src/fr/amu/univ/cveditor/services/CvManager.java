@@ -41,11 +41,6 @@ public class CvManager {
 	public void update(Cv cv) {
 		em.merge(cv);
 	}//update()
-	
-	public Cv newInstance() {
-		em.getTransaction();
-		return new Cv();
-	}//giveMeNewCv()
 
 
 	public Cv find(Integer id) {

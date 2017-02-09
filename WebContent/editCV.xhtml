@@ -25,7 +25,7 @@
 						<h:outputLabel for="nameCV">Nom : </h:outputLabel>
 						<h:inputText value="#{c.name}" id="nameCV"></h:inputText>
 					</h:panelGrid>
-					<h:commandButton action="#{auth.updateConnectedUser}"
+					<h:commandButton action="#{cv.store}"
 						value="Enregistrer" />
 
 					<h:dataTable value="#{c.activites}" var="a"

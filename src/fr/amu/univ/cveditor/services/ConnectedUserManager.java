@@ -47,10 +47,9 @@ public class ConnectedUserManager {
 		return p;
 	}//updateUser()
 	
-	public void setBirthdate(String birthdate){
-		this.p.setBirthdate(birthdate);
-		updateUser();
-	}//setBirthdate()
+	public boolean removeUser() {
+		return pm.remove(p.getEmail());
+	}//removeUser()
 	
 	
 }//ConnectedUserManager()

@@ -64,6 +64,17 @@ public class AuthenticateController implements Serializable {
 		return um.updateUser();
 	}//updateConnectedUser()
 	
+	public String removeConnectedUser() throws IOException {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		if(um.removeUser()) {
+			return logout();
+		}
+		
+		context.addMessage(null, new FacesMessage("Une erreur est survenue"));
+		return null;
+	}//removeConnectedUser()
+	
 	
 	/* Listeners */
 	public void redirectToAuth(ComponentSystemEvent event) {

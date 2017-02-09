@@ -86,13 +86,14 @@ public class PersonManager {
 		
 	}//search()
 	*/
-	/*public boolean remove(String email) {
+	public boolean remove(String email) {
 		Person person = em.find(Person.class, email);
 		if(person != null) {
+			person = em.merge(person);
 			em.remove(person);
 			return true;
 		}
 		return false;
 	}//remove()
-*/
+
 }//PersonManager

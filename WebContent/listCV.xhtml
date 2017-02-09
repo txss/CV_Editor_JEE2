@@ -13,17 +13,25 @@
 		<ui:define name="title">Cv Editor - Liste des CV</ui:define>
 
 		<ui:define name="content">
-			<h:form>
-				<p:dataTable var="c" value="#{cv.findAll()}" rows="5" paginator="true"
-					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15">
-					
-					<p:column headerText="Liste des CV">
-						<h:commandLink action="#{cv.showCV(c.id)}"
-							value="Cv de #{c.person.firstName}  #{c.person.name}" />
-					</p:column>
-				</p:dataTable>
-			</h:form>
+			<div class="row center">
+				<h2>Voici tous les cv disponible:</h2>
+			</div>
+			<div class="row">
+        		<div class="col-md-6 col-md-offset-3">
+					<h:form>
+						<p:dataTable var="c" value="#{cv.findAll()}" rows="10" paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+							
+							<p:column headerText="Liste des CV">
+								<h:commandLink action="#{cv.show(c.id)}"
+									value="Cv de #{c.person.firstName}  #{c.person.name}" />
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+				
 		</ui:define>
 	</ui:composition>
 </h:body>

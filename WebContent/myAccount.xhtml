@@ -102,7 +102,7 @@
 				
 				<div class="row">
 					<div class="col-md-6">
-						<c:if test="#{auth.isCv()}">
+						<c:if test="#{auth.hasCv()}">
 							<f:view>
 								<h:form>
 			 						<h:commandLink action="#{cv.show()}" class="btn btn-primary">Voir mon CV <span
@@ -111,7 +111,7 @@
 								</h:form>
 							</f:view>
 						</c:if>
-						<c:if test="#{auth.isCv() eq false}">
+						<c:if test="#{auth.hasCv() eq false}">
 							<h:form>
 								<h:commandLink action="#{cv.newCv()}" value="Créer votre CV" class="btn btn-primary"/>
 							</h:form>

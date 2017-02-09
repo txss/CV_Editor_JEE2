@@ -23,17 +23,19 @@
 				<h:outputText value="#{p.firstName}, voici votre CV" />
 			</h1>
 
-			<h3>
-				<h:form>
-					<h:commandLink action="#{cv.edit()}">Editer mon CV <span
-							class="glyphicon glyphicon-pencil" />
-					</h:commandLink>
-
-					<h:commandLink action="#{cv.remove()}">Supprimer mon CV <span
-							class="glyphicon glyphicon-remove" />
-					</h:commandLink>
-				</h:form>
-			</h3>
+			<c:if test='#{auth.connectedUser.cv.id eq cv.cv.id}'>
+				<h3>
+					<h:form>
+						<h:commandLink action="#{cv.edit()}">Editer mon CV <span
+								class="glyphicon glyphicon-pencil" />
+						</h:commandLink>
+	
+						<h:commandLink action="#{cv.remove()}">Supprimer mon CV <span
+								class="glyphicon glyphicon-remove" />
+						</h:commandLink>
+					</h:form>
+				</h3>
+			</c:if>
 
 			<h:form>
 				<div class="cvPage">

@@ -1,5 +1,8 @@
 package fr.amu.univ.cveditor.entities;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +26,7 @@ public class Person {
 	@Column(name = "website")
 	private String webSite;
 	@Column(name = "birthdate")
-	private String birthdate;
+	private Date birthdate;
 	@Column(name = "password")
 	private String password;
 	
@@ -38,7 +41,7 @@ public class Person {
 	public String getFirstName() 	{ return firstName; }
 	public String getEmail() 		{ return email; 	}
 	public String getWebSite() 		{ return webSite; 	}
-	public String getBirthdate() 	{ return birthdate; }
+	public Date getBirthdate() 	{ return birthdate; }
 	public String getPassword() 	{ return password; 	}
 	public Cv	  getCv()			{ return cv;		}
 
@@ -47,7 +50,14 @@ public class Person {
 	public void setFirstName(String firstName) 	{ this.firstName = firstName; 	}
 	public void setEmail(String email) 			{ this.email = email; 			}
 	public void setWebSite(String webSite) 		{ this.webSite = webSite; 		}
-	public void setBirthdate(String birthdate) 	{ this.birthdate = birthdate; 	}
+	public void setBirthdate(String birthdate) 	{
+		String []date = birthdate.split("/");
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, Integer.parseInt(date[0]) );
+		cal.set(Calendar.MONTH, Integer.parseInt(date[1]) -1);
+		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date[2]) );
+		this.birthdate = new Date(cal.getTimeInMillis());}
+
 	public void setPassword(String password) 	{ this.password = DigestUtils.sha256Hex(password);}
 	public void setCv(Cv cv) 					{ this.cv = cv;					}
 	

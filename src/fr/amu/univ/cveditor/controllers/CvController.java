@@ -1,6 +1,7 @@
 package fr.amu.univ.cveditor.controllers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import fr.amu.univ.cveditor.entities.Activite;
 import fr.amu.univ.cveditor.entities.Cv;
 import fr.amu.univ.cveditor.services.CvManager;
 
@@ -68,12 +70,14 @@ public class CvController implements Serializable {
 	
 	public String edit() {
 		cv = cvm.find(auth.getConnectedUser().getCv().getId());
+		
 		return nav.editCv();
 	}//editCv()
 	
 	public String store() {
 		System.out.println("------------------STORE------------------");
 		System.out.println(cv.getId());
+		System.out.println(cv.getActivites());
 		
 		auth.getConnectedUser().setCv(cv);
 		
@@ -88,10 +92,8 @@ public class CvController implements Serializable {
 		System.out.println("------------------NEW CV------------------");
 
 		cv = new Cv();
-		auth.getConnectedUser().setCv(cv);
+		cv.setActivites(new ArrayList<Activite>());
 		
-		System.out.println(cv.getId());
-		System.out.println(auth.getConnectedUser().getCv().getId());
 		return nav.editCv();
 	}//newCv()
 	

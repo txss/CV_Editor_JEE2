@@ -48,9 +48,6 @@ public class CvManager {
 		
 		if(cv.getActivites() != null)
 			cv.getActivites().size();
-		else
-			System.out.println("Je suis passé laaaaa");
-			cv.setActivites(new ArrayList<Activite>());
 			
 		if(cv.getPerson() != null)
 			cv.getPerson().getEmail();

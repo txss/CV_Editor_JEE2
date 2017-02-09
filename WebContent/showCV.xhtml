@@ -16,16 +16,12 @@
 		<ui:define name="title">Cv Editor - Votre CV</ui:define>
 
 		<ui:define name="content">
+			<c:set var="c" value="#{cv.cv}" />
+			<c:set var="p" value="#{auth.connectedUser}" />
 			<h1>
-				<h:outputText
-					value="#{auth.connectedUser.firstName}, voici votre CV" />
+				<h:outputText value="#{p.firstName}, voici votre CV" />
 			</h1>
 
-			<c:set var="c" value="#{cv.cv}" />
-
-			<h2>
-				<h:outputText value="#{c.name}" />
-			</h2>
 			<h3>
 				<h:form>
 					<h:commandLink action="#{cv.edit()}">Editer mon CV <span
@@ -37,40 +33,46 @@
 					</h:commandLink>
 				</h:form>
 			</h3>
-			<h:dataTable value="#{c.activites}" var="a" styleClass="order-table"
-				headerClass="order-table-header"
-				rowClasses="order-table-odd-row,order-table-even-row">
 
-				<h:column>
-					<f:facet name="header">Activité</f:facet>
-    				#{a.id}
-    			</h:column>
+			<h:form>
+				<div class="cvPage">
+					<div class="cvTitle">
+						<p>#{c.name}</p>
+					</div>
+					<div class="infoPers">
+						<div class="info">
+							<p>
+								<strong>#{p.firstName} #{p.name}</strong><br />Né le
+								<h:outputText value="#{p.birthdate}">
+								</h:outputText>
+							</p>
+							<p>#{p.email}</p>
+						</div>
+						<div class="photo"></div>
+					</div>
 
-				<h:column>
-					<f:facet name="header">Années</f:facet>
-    				#{a.years}
-    			</h:column>
+					<c:forEach var="a" items="#{c.activites}">
+						<div class="activity">
+							<p class="nature">${a.nature}</p>
+							<div class="gauche">
+								<p>${a.years}</p>
+							</div>
+							<div class="droite">
+								<p>
+									<span class="title">${a.title}</span>
+								</p>
+								<p>
+									<span class="elemActivity">${a.description}</span>
+								</p>
+								<p>
+									<span class="elemActivity">${a.email}</span>
+								</p>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</h:form>
 
-				<h:column>
-					<f:facet name="header">Nature</f:facet>
-    				#{a.nature}
-    			</h:column>
-
-				<h:column>
-					<f:facet name="header">Titre</f:facet>
-    				#{a.title}
-    			</h:column>
-
-				<h:column>
-					<f:facet name="header">Description</f:facet>
-    				#{a.description}
-    			</h:column>
-
-				<h:column>
-					<f:facet name="header">Email</f:facet>
-    				#{a.email}
-    			</h:column>
-			</h:dataTable>
 
 		</ui:define>
 

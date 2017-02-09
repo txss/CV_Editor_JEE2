@@ -7,15 +7,35 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+<f:metadata>
+	<f:event listener="#{auth.redirectToAuth}" type="preRenderView" />
+	<f:event listener="#{cv.redirectToAccount}" type="preRenderView"/>
+</f:metadata>
+
 <h:body>
 	<ui:composition template="/template/mylayout.xhtml">
 		<ui:define name="title">Cv Editor - Votre CV</ui:define>
 
 		<ui:define name="content">
 			<c:set var="c" value="#{cv.cv}" />
+			<c:set var="p" value="#{auth.connectedUser}" />
 			<h1>
-				<h:outputText value="CV de #{c.person.firstName} #{c.person.name}" />
+				<h:outputText value="#{p.firstName}, voici votre CV" />
 			</h1>
+
+			<c:if test='#{auth.connectedUser.cv.id eq cv.cv.id}'>
+				<h3>
+					<h:form>
+						<h:commandLink action="#{cv.edit()}">Editer mon CV <span
+								class="glyphicon glyphicon-pencil" />
+						</h:commandLink>
+	
+						<h:commandLink action="#{cv.remove()}">Supprimer mon CV <span
+								class="glyphicon glyphicon-remove" />
+						</h:commandLink>
+					</h:form>
+				</h3>
+			</c:if>
 
 			<h:form>
 				<div class="cvPage">
@@ -25,11 +45,11 @@
 					<div class="infoPers">
 						<div class="info">
 							<p>
-								<strong>#{c.person.firstName} #{c.person.name}</strong><br />Né le
-								<h:outputText value="#{c.person.birthdate}">
+								<strong>#{p.firstName} #{p.name}</strong><br />Né le
+								<h:outputText value="#{p.birthdate}">
 								</h:outputText>
 							</p>
-							<p>#{c.person.email}</p>
+							<p>#{p.email}</p>
 						</div>
 						<div class="photo"></div>
 					</div>

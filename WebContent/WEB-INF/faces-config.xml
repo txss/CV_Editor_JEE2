@@ -38,6 +38,20 @@
 			fr.amu.univ.cveditor.controllers.MyMessage
 		</message-bundle>
      </application>
+     
+     <managed-bean>
+		<managed-bean-name>search</managed-bean-name>
+		<managed-bean-class>fr.amu.univ.cveditor.controllers.searchController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>cvController</property-name>
+			<value>#{cv}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>personController</property-name>
+			<value>#{person}</value>
+		</managed-property>
+	</managed-bean>
 
 </faces-config>
 

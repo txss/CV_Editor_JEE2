@@ -54,7 +54,7 @@ public class CvController implements Serializable {
 
 	public String show() {
 		cv = cvm.find(auth.getConnectedUser().getCv().getId());
-		return nav.showCV();
+		return nav.showMyCV();
 	}//show()
 	
 	public String show(Integer id) {
@@ -71,7 +71,7 @@ public class CvController implements Serializable {
 		auth.getConnectedUser().setCv(cv);
 		auth.updateConnectedUser();
 		
-		return nav.showCV();
+		return nav.showMyCV();
 	}//store()
 
 	public String newCv() {
@@ -92,6 +92,10 @@ public class CvController implements Serializable {
 		
 		return nav.account();
 	}//remove()
+	
+	public List<Cv> search(String s) {
+		return cvm.search(s);
+	}//search()
 	
 	
 	

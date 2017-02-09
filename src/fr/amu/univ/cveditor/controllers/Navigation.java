@@ -26,6 +26,10 @@ public class Navigation implements Serializable {
 	public String account() {
 		return "myAccount?faces-redirect=true";
 	}//account()
+	
+	public String showMyCV() {
+		return "showMyCV";
+	}//showCV()
 
 	public String showCV() {
 		return "showCV";
@@ -46,5 +50,9 @@ public class Navigation implements Serializable {
 	public String listCv() {
 		return "listCV";
 	}//showPerson()
+
+	public String resultSearch() {
+		return "resultSearch";
+	}//resultSearch()
 
 }//Navigation

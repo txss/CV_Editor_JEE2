@@ -8,6 +8,7 @@ import javax.ejb.Remove;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import fr.amu.univ.cveditor.entities.Activite;
 import fr.amu.univ.cveditor.entities.Cv;
@@ -55,11 +56,14 @@ public class CvManager {
 		return cv;
 	}//find()
 	
-/*
-	public Cv search(Cv cv) {
+
+	public List<Cv> search(String s) {
+		TypedQuery<Cv> q = em.createQuery(
+				"SELECT c FROM Cv c WHERE c.name LIKE :search", Cv.class);
+		return q.setParameter("search", "%"+s+"%").getResultList();
 		
 	}//search()
-*/
+
 	public void remove(Integer idCv, String emailPerson) {
 		Cv updatedCv = em.find(Cv.class, idCv);
 		Person updatedPerson = em.find(Person.class, emailPerson);

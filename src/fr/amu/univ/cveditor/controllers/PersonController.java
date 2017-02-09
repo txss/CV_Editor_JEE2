@@ -29,7 +29,7 @@ public class PersonController implements Serializable {
 	}//init()
 
 	public Person getPerson() {
-		return this.p;
+		return p;
 	}//getPerson()
 
 	public List<Person> findAll() {
@@ -51,13 +51,17 @@ public class PersonController implements Serializable {
 	}//updatePerson()
 
 
-	public String show(Person p) {
-		this.p = pm.find(p.getEmail());
+	public String show(String email) {
+		p = pm.find(email);
 		return nav.showPerson();
 	}//show()
 
 	public String edit() {
 		return nav.editPerson();
 	}//edit()
+	
+	public List<Person> search(String s) {
+		return pm.search(s);
+	}//search()
 	
 }//PersonController

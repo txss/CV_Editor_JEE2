@@ -9,6 +9,7 @@ import javax.ejb.Remove;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import fr.amu.univ.cveditor.entities.Activite;
 import fr.amu.univ.cveditor.entities.Person;
@@ -82,10 +83,15 @@ public class PersonManager {
 		return p;
 	}//find()
 
-	/*public Person search(Person p) {
+	public List<Person> search(String s) {
+		TypedQuery<Person> q = em.createQuery(
+				"SELECT p FROM Person p WHERE p.firstName LIKE :search "
+				+ "OR p.name LIKE :search OR CONCAT(p.firstName,' ', p.name) LIKE :search "
+				+ "OR p.email LIKE :search", Person.class);
 		
+		return q.setParameter("search", "%"+s+"%").getResultList();
 	}//search()
-	*/
+	
 	public boolean remove(String email) {
 		Person person = em.find(Person.class, email);
 		if(person != null) {

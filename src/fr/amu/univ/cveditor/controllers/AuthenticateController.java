@@ -32,7 +32,6 @@ public class AuthenticateController implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		
 	}//init()
 	
 	

@@ -20,17 +20,27 @@ public class ActiviteController implements Serializable {
 	private Activite activite = new Activite(); 
 
 	@ManagedProperty(value = "#{cv}")
-	private CvController currentCv;
+	private CvController cvController;
 
 	//must povide the setter method
 	public void setCvController(CvController cvController) {
-		this.currentCv = cvController;
+		this.cvController = cvController;
 	}//setCvController()
 
 	
 	@PostConstruct
 	public void init() {
 	}//init()
+	
+	
+	
+	
+	
+	/* Private methods */
+	
+	private List<Activite> getActivites() {
+		return cvController.getCv().getActivites();
+	}//getActivites()
 
 	private int getHighestActivityId() {
 		int id = 0;
@@ -43,13 +53,9 @@ public class ActiviteController implements Serializable {
 
 	private void newActivite() {
 		activite = new Activite();
-		System.out.println(getActivites().size());
-		if(getActivites().isEmpty())
-			activite.setId(1);
-		activite.setId(getHighestActivityId() + 1);
 	}//newActivity()
 
-	private int exist(int idAct) {
+	private int indexOf(int idAct) {
 		for(int i = 0 ; i < getActivites().size() ; ++i) {
 			if(getActivites().get(i).getId() == idAct) {
 				return i;
@@ -58,14 +64,28 @@ public class ActiviteController implements Serializable {
 		return -1;
 	}//exist()
 
+	private void setId() {
+			if(getActivites().isEmpty())
+				activite.setId(1);
+			else
+				activite.setId(getHighestActivityId() + 1);
+	}//setNewId()
+	
 	private void save() {
-		if(exist(activite.getId()) > 0) {
-			getActivites().set(activite.getId(), activite);
+		int indexAct = indexOf(activite.getId());
+		
+		if(indexAct >= 0) {
+			System.out.println("J'ai trouvé l'activité : " + activite.getId());
+			getActivites().set(indexAct, activite);
 		}
 		else {
+			System.out.println("Nouvelle activité !");
+			setId();
 			getActivites().add(activite);
 		}
 	}//store()
+	
+	
 	
 
 	/* Members Methods */
@@ -73,23 +93,33 @@ public class ActiviteController implements Serializable {
 		return activite;
 	}//getActivite()
 
-	public Activite getActivite(int index) {
-		activite = getActivites().get(index);
+	public Activite getActivite(int idAct) {
+		activite = getActivites().get(indexOf(idAct));
 		return activite;
 	}//getActivite()
 
-	public List<Activite> getActivites() {
-		return currentCv.getCv().getActivites();
-	}//getActivites()
-
 	public void remove(Integer idAct) {
-		getActivites().remove(exist(idAct));
+		int indexAct = indexOf(idAct);
+		List<Activite> modifiedActivities = getActivites();
+		
+		/* Update Activities's id */
+		modifiedActivities.remove(indexAct);
+		for(int i = indexAct ; i < modifiedActivities.size() ; ++i) {
+			modifiedActivities.get(i).setId(modifiedActivities.get(i).getId() - 1);
+		}
+		
+		cvController.getCv().setActivites(modifiedActivities);
 	}//remove()
 
-	public void listener(AjaxBehaviorEvent event) {
-		System.out.println(getActivites());
+	/* Listener */
+	public void saveAct(AjaxBehaviorEvent event) {
 		save();
 		newActivite();
-	}//listener()
+	}//saveAct()
+	
+	public void removeAct(AjaxBehaviorEvent event) {
+		remove(activite.getId());
+		newActivite();
+	}//removeAct()
 
 }//ActiviteController

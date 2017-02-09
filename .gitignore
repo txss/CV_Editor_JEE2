@@ -1,4 +1,4 @@
 build/*
 target/*
 /target/
-WebContent/WEB-INF/resource.xml
+WebContent/WEB-INF/resources.xml

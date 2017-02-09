@@ -15,15 +15,17 @@
 			id="bs-example-navbar-collapse-1">
 			<ul id="menu" class="nav navbar-nav">
 				
+				<li>
+					<h:link outcome="index">Accueil</h:link>
+				</li>
+				<c:if test="#{auth.isConnected()}">
 					<li>
-						<h:link outcome="index">Accueil</h:link>
+						<h:link outcome="myAccount"><span class="glyphicon glyphicon-user"></span> Mon profil</h:link>
 					</li>
-					<c:if test="#{auth.isConnected()}">
-						<li>
-							<h:link outcome="myAccount"><span class="glyphicon glyphicon-user"></span> Mon profil</h:link>
-						</li>
-					
 				 </c:if>
+				 <li>
+					<h:link outcome="listCv">Liste des CVs</h:link>
+				</li>
 			</ul>
 			<form class="navbar-form navbar-left" action="/Annuaire/actions/search" method="get">
 				<div class="form-group">

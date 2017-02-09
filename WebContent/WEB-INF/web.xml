@@ -45,7 +45,7 @@
 	</context-param>
 
     <error-page>
-        <location>/index.xtml</location>
+        <location>/error.xhtml</location>
     </error-page>
       
 </web-app>

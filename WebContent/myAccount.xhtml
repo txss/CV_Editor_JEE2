@@ -18,105 +18,152 @@
 
 		<ui:define name="content">
 			
-			<div class="col-md-10 col-md-offset-1">
+			<div class="col-md-10 col-md-offset-1 container-fluid">
 				<c:set var="p" value="#{auth.connectedUser}" />
 				<div class="page-header">
 					<h1>Bonjour <h:outputText value="#{p.name}"/></h1>
 				</div>
 				
-				<f:view>
-					<h:form id="person_form">
-						<h3>Vos informations personnelles <small><a href="javascript:$( '#editForm' ).show();"><span class="glyphicon glyphicon-pencil"></span></a></small></h3>
-						
-						<p:outputLabel value="Prènom: " />
-						<h:outputText value=" #{p.name}"/><br/>
-						
-						<p:outputLabel value="Nom: " />
-						<h:outputText value=" #{p.firstName}"/><br/>
-						
-						<p:outputLabel value="Date de naissance: " />
-						<h:outputText value=" #{p.birthdate} " /><br/>
-						
-						<p:outputLabel value="Email: " />
-						<h:outputText value=" #{p.email}" /><br/>
-						
-						<c:if test='#{p.webSite ne ""}'>
-							<p:outputLabel value="Site web: " />
-							<a target="_blank" href="#{p.webSite}"><h:outputText value=" #{p.webSite}" /></a><br/>
-						</c:if>
-						
-					</h:form>
-				</f:view>
-				<h:form>
-					<h:commandLink action="#{auth.removeConnectedUser}"><span class="glyphicon glyphicon-remove"/></h:commandLink>
-				</h:form>
-				<div id="editForm" hidden="true">
-					<f:view>
-						<h:form id="editPerson_form">
-							<h:panelGrid columns="3">
-								<p:outputLabel for="firstName" value="Nom :" />
-								<p:inputText id="firstName" value="#{p.firstName}"
-									requiredMessage="Le nom est obligatoire, min 2 caractéres.">
-									<f:validateRequired />
-									<f:validateLength minimum="2"/>
-								</p:inputText>
-								<h:message for="firstName" style="color:red" />
-								
-								<p:outputLabel for="name" value="Prènom:" />
-								<p:inputText id="name" value="#{p.name}" 
-									requiredMessage="Le prènom est obligatoire, min 2 caractéres.">
-									<f:validateRequired />
-									<f:validateLength minimum="2"/>
-								</p:inputText>
-								<h:message for="name" style="color:red" />
-						
-								<p:outputLabel for="birthdate" value="Date de naissance :" />
-								<p:inputMask id="birthdate" value="#{p.birthdate}" mask="99/99/9999"
-									requiredMessage="La date de naissance est obligatoire.">
-									<f:validateRequired />
-								</p:inputMask>
-								<h:message for="birthdate" style="color:red" />
-								
-								<p:outputLabel for="email" value="Email :" />
-								<p:inputText id="email" value="#{p.email}" 
-									requiredMessage="L'email est obligatoire.">
-									<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-									<f:validateRequired />
-								</p:inputText>
-								<h:message for="email" style="color:red" />
-								
-								<p:outputLabel for="website" value="Site internet :" />
-								<p:inputText id="website" value="#{p.webSite}" />
-								<h:message for="website" style="color:red" />
-								
-							</h:panelGrid>
-							
-							<h:commandButton value="Enregistrer" class="btn btn-primary">
-								<f:ajax execute="@form" listener="#{auth.listener}"
-								render="@form person_form" />
-							</h:commandButton>
-							
-						</h:form>
-					</f:view>
+				<div class="row">
+					<button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#confirmErase"><span class="glyphicon glyphicon-remove" style="color: red;"></span>Supprimer mon compte</button>
 				</div>
-	
-				<c:if test="#{auth.hasCv()}">
-					<f:view>
-						<h:form>
-	 						<h:commandLink action="#{cv.show()}" class="btn btn-primary">Voir mon CV <span
-									class="glyphicon glyphicon-eye-open"/>
-							</h:commandLink>
-						</h:form>
-					</f:view>
-				</c:if>
+
 				
-				<c:if test="#{auth.hasCv() eq false}">
-					<h:form>
-						<h:commandLink action="#{cv.newCv()}" value="Créer votre CV" class="btn btn-primary"/>
-					</h:form>
-				</c:if>
+				<div class="row">
+				
+					<div class="col-md-6">
+						<f:view>
+							<h:form id="person_form">
+								<h3>Vos informations personnelles <small><a href="javascript:$( '#editForm' ).show();"><span class="glyphicon glyphicon-pencil"></span></a></small></h3>
+								
+								<p:outputLabel value="Prènom: " />
+								<h:outputText value=" #{p.name}"/><br/>
+								
+								<p:outputLabel value="Nom: " />
+								<h:outputText value=" #{p.firstName}"/><br/>
+								
+								<p:outputLabel value="Date de naissance: " />
+								<h:outputText value=" #{p.birthdate} " /><br/>
+								
+								<p:outputLabel value="Email: " />
+								<h:outputText value=" #{p.email}" /><br/>
+								
+								<c:if test='#{p.webSite ne ""}'>
+									<p:outputLabel value="Site web: " />
+									<a target="_blank" href="#{p.webSite}"><h:outputText value=" #{p.webSite}" /></a><br/>
+								</c:if>
+								
+							</h:form>
+						</f:view>
+					</div>
+					<div id="editForm" hidden="true" class="col-md-6">
+						<f:view>
+							<h:form id="editPerson_form">
+								<h:panelGrid columns="3">
+									<p:outputLabel for="firstName" value="Nom :" />
+									<p:inputText id="firstName" value="#{p.firstName}"
+										requiredMessage="Le nom est obligatoire, min 2 caractéres.">
+										<f:validateRequired />
+										<f:validateLength minimum="2"/>
+									</p:inputText>
+									<h:message for="firstName" style="color:red" />
+									
+									<p:outputLabel for="name" value="Prènom:" />
+									<p:inputText id="name" value="#{p.name}" 
+										requiredMessage="Le prènom est obligatoire, min 2 caractéres.">
+										<f:validateRequired />
+										<f:validateLength minimum="2"/>
+									</p:inputText>
+									<h:message for="name" style="color:red" />
+							
+									<p:outputLabel for="birthdate" value="Date de naissance :" />
+									<p:inputMask id="birthdate" value="#{p.birthdate}" mask="99/99/9999"
+										requiredMessage="La date de naissance est obligatoire.">
+										<f:validateRequired />
+									</p:inputMask>
+									<h:message for="birthdate" style="color:red" />
+									
+									<p:outputLabel for="website" value="Site internet :" />
+									<p:inputText id="website" value="#{p.webSite}" />
+									<h:message for="website" style="color:red" />
+									
+								</h:panelGrid>
+								
+								<h:commandButton value="Enregistrer" class="btn btn-primary">
+									<f:ajax execute="@form" listener="#{auth.listener}"
+									render="@form person_form" />
+								</h:commandButton>
+								
+							</h:form>
+						</f:view>
+					</div>
+				
+				</div>
+				
+				<div class="row">
+					<div class="col-md-6">
+						<c:if test="#{auth.isCv()}">
+							<f:view>
+								<h:form>
+			 						<h:commandLink action="#{cv.show()}" class="btn btn-primary">Voir mon CV <span
+											class="glyphicon glyphicon-eye-open"/>
+									</h:commandLink>
+								</h:form>
+							</f:view>
+						</c:if>
+						<c:if test="#{auth.isCv() eq false}">
+							<h:form>
+								<h:commandLink action="#{cv.newCv()}" value="Créer votre CV" class="btn btn-primary"/>
+							</h:form>
+						</c:if>
+					</div><!-- fin colmd6 -->
+					
+					<div class="col-md-6">
+						
+					</div><!-- fin colmd6 -->
+				</div> <!-- fin row -->
 			
+			</div><!-- fin container  -->
+			
+			
+			<div class="modal fade" tabindex="-1" role="dialog" id="confirmErase">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title">Suppression du compte</h4>
+						</div>
+						<div class="modal-body">
+							<div class="alert alert-warning" role="alert">
+								<span class="glyphicon glyphicon-warning-sign"
+									style="color: orange;"></span>
+									Cette action sera définitive et ne pourra être annulée.
+							</div>
+							<p>Vous etes sur le point de supprimer toute les informations
+								vous concernant.</p>
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+							<h:form class="pull-right">
+								<h:commandLink action="#{auth.removeConnectedUser}" class="btn btn-danger">Confirmer</h:commandLink>
+							</h:form>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
 			</div>
+			<!-- /.modal -->
+			
+			<script type="text/javascript">
+				$('#confirmErase').on('shown.bs.modal', function() {
+				})
+			</script>
+			
 			
 		</ui:define>
 	</ui:composition>

@@ -37,16 +37,26 @@
 								<h3>Vos informations personnelles <small><a href="javascript:$( '#editForm' ).show();"><span class="glyphicon glyphicon-pencil"></span></a></small></h3>
 								
 								<p:outputLabel value="Prènom: " />
-								<h:outputText value=" #{p.name}"/><br/>
+								<h:outputText value=" #{p.name}"/>
+								
+								<br/>
 								
 								<p:outputLabel value="Nom: " />
-								<h:outputText value=" #{p.firstName}"/><br/>
+								<h:outputText value=" #{p.firstName}"/>
+								
+								<br/>
 								
 								<p:outputLabel value="Date de naissance: " />
-								<h:outputText value=" #{p.birthdate} " /><br/>
+								<h:outputFormat value="{0, date, dd/MM/yyyy}" >
+									<f:param value="#{p.birthdate}"/>
+								</h:outputFormat>
+								
+								<br/>
 								
 								<p:outputLabel value="Email: " />
-								<h:outputText value=" #{p.email}" /><br/>
+								<h:outputText value=" #{p.email}" />
+								
+								<br/>
 								
 								<c:if test='#{p.webSite ne ""}'>
 									<p:outputLabel value="Site web: " />
@@ -80,6 +90,7 @@
 									<p:inputMask id="birthdate" value="#{p.birthdate}" mask="99/99/9999"
 										requiredMessage="La date de naissance est obligatoire.">
 										<f:validateRequired />
+										<f:convertDateTime pattern="dd/MM/yyyy" />
 									</p:inputMask>
 									<h:message for="birthdate" style="color:red" />
 									

@@ -1,6 +1,5 @@
 package fr.amu.univ.cveditor.entities;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -50,13 +49,7 @@ public class Person {
 	public void setFirstName(String firstName) 	{ this.firstName = firstName; 	}
 	public void setEmail(String email) 			{ this.email = email; 			}
 	public void setWebSite(String webSite) 		{ this.webSite = webSite; 		}
-	public void setBirthdate(String birthdate) 	{
-		String []date = birthdate.split("/");
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, Integer.parseInt(date[0]) );
-		cal.set(Calendar.MONTH, Integer.parseInt(date[1]) -1);
-		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date[2]) );
-		this.birthdate = new Date(cal.getTimeInMillis());}
+	public void setBirthdate(Date birthdate) 	{ this.birthdate = birthdate;	}
 
 	public void setPassword(String password) 	{ this.password = DigestUtils.sha256Hex(password);}
 	public void setCv(Cv cv) 					{ this.cv = cv;					}

@@ -107,10 +107,15 @@ public class CvController implements Serializable {
 		}
 	}//redirectToAuth()
 	
-	public void initCV(ComponentSystemEvent event) {
-		if(cv == null || 
-				(auth.getConnectedUser() != null && auth.getConnectedUser().getCv() == null))
-			newCv();
-	}//redirectToAuth()
+	public void redirectWhenUserTryToAccessToShowCVByURL(ComponentSystemEvent event) {
+		if(cv == null) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			ConfigurableNavigationHandler cNav
+			= (ConfigurableNavigationHandler)
+			fc.getApplication().getNavigationHandler();
+
+			cNav.performNavigation("myAccount.xhtml");
+		}
+	}//redirectWhenUserTryToAccessToShowCVByURL()
 	
 }//CvController

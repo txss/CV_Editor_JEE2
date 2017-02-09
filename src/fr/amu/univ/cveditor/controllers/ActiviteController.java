@@ -1,6 +1,7 @@
 package fr.amu.univ.cveditor.controllers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ComponentSystemEvent;
 
 import fr.amu.univ.cveditor.entities.Activite;
 
@@ -73,8 +73,10 @@ public class ActiviteController implements Serializable {
 	}//setNewId()
 	
 	private void save() {
-		int indexAct = indexOf(activite.getId());
+		if(getActivites() == null)
+			cvController.getCv().setActivites(new ArrayList<Activite>());
 		
+		int indexAct = indexOf(activite.getId());
 		if(indexAct >= 0) {
 			getActivites().set(indexAct, activite);
 		}
@@ -120,10 +122,5 @@ public class ActiviteController implements Serializable {
 		remove(activite.getId());
 		newActivite();
 	}//removeAct()
-	
-	public void initAct(ComponentSystemEvent event) {
-		if(activite == null)
-			newActivite();
-	}//redirectToAuth()
 
 }//ActiviteController

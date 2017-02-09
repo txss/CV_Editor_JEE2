@@ -38,9 +38,9 @@ public class Navigation implements Serializable {
 	public String showPerson() {
 		return "showPerson";
 	}//showPerson()
-
+	
 	public String editPerson() {
 		return "editPerson";
-	}//editPerson()
+	}//showPerson()
 
 }//Navigation

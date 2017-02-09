@@ -94,5 +94,8 @@ public class AuthenticateController implements Serializable {
 		requestContext.execute("$( '#editForm' ).hide()");
 	}//listener()
 	
+	public boolean isCv(){
+		return um.getUser().getCv() != null ? true : false;
+	}//isCv()
 	
 }//AuthentificationController()

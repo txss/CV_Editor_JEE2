@@ -59,5 +59,5 @@ public class PersonController implements Serializable {
 	public String edit() {
 		return nav.editPerson();
 	}//edit()
-
+	
 }//PersonController

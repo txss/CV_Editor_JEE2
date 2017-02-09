@@ -75,11 +75,9 @@ public class ActiviteController implements Serializable {
 		int indexAct = indexOf(activite.getId());
 		
 		if(indexAct >= 0) {
-			System.out.println("J'ai trouvé l'activité : " + activite.getId());
 			getActivites().set(indexAct, activite);
 		}
 		else {
-			System.out.println("Nouvelle activité !");
 			setId();
 			getActivites().add(activite);
 		}

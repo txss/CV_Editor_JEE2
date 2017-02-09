@@ -20,7 +20,10 @@
 			
 			<h1>
 				<h:outputText value="Mon profil" />
-				<a href="javascript:$( '#editForm' ).show();"><span class="glyphicon glyphicon-pencil"></span></a>
+				<a href="javascript:$( '#editForm' ).show();"><span class="glyphicon glyphicon-pencil"/></a>
+				<h:form>
+					<h:commandLink action="#{auth.removeConnectedUser}"><span class="glyphicon glyphicon-remove"/></h:commandLink>
+				</h:form>
 			</h1>
 			
 

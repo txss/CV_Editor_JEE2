@@ -4,18 +4,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 
 import fr.amu.univ.cveditor.entities.Activite;
 import fr.amu.univ.cveditor.entities.Cv;
 import fr.amu.univ.cveditor.services.CvManager;
 
 @ManagedBean(name="cv")
-@SessionScoped
+@ViewScoped
 public class CvController implements Serializable {
 	private static final long serialVersionUID = 3314456687259986660L;
 	
@@ -35,16 +37,6 @@ public class CvController implements Serializable {
 		this.auth = AuthController;
 	}//setCvController()
 	
-	@PostConstruct
-	public void init() {
-		System.out.println("------------------INIT------------------");
-		System.out.println(auth.getConnectedUser().getEmail());
-		if(auth.getConnectedUser().getCv() != null)
-			System.out.println(auth.getConnectedUser().getCv().getId());
-	}//init()
-	
-	
-	
 	/* Members Methods */
 	public Cv getCv() {
 		return this.cv;
@@ -61,36 +53,23 @@ public class CvController implements Serializable {
 	
 
 	public String show() {
-		System.out.println("------------------SHOW------------------");
-		System.out.println(auth.getConnectedUser().getCv().getId());
-		
 		cv = cvm.find(auth.getConnectedUser().getCv().getId());
 		return nav.showCV();
 	}//show()
 	
 	public String edit() {
 		cv = cvm.find(auth.getConnectedUser().getCv().getId());
-		
 		return nav.editCv();
 	}//editCv()
 	
 	public String store() {
-		System.out.println("------------------STORE------------------");
-		System.out.println(cv.getId());
-		System.out.println(cv.getActivites());
-		
 		auth.getConnectedUser().setCv(cv);
-		
-		System.out.println(auth.getConnectedUser().getCv().getId());
-		
 		auth.updateConnectedUser();
 		
 		return nav.showCV();
 	}//store()
 
 	public String newCv() {
-		System.out.println("------------------NEW CV------------------");
-
 		cv = new Cv();
 		cv.setActivites(new ArrayList<Activite>());
 		
@@ -98,17 +77,34 @@ public class CvController implements Serializable {
 	}//newCv()
 	
 	public String remove() {
-		System.out.println("------------------REMOVE------------------");
-		System.out.println(auth.getConnectedUser().getEmail());
-		System.out.println(auth.getConnectedUser().getCv().getId());
-		
 		String emailPerson = auth.getConnectedUser().getEmail();
 		Integer idCv = auth.getConnectedUser().getCv().getId();
 		
 		auth.getConnectedUser().setCv(null);
+		cv = null;
 		
 		cvm.remove(idCv, emailPerson);
+		
 		return nav.account();
 	}//remove()
+	
+	
+	
+	/* Listener */
+	public void redirectToAccount(ComponentSystemEvent event) {
+		if(auth.getConnectedUser() == null || auth.getConnectedUser().getCv() == null) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			ConfigurableNavigationHandler cNav
+			= (ConfigurableNavigationHandler)
+			fc.getApplication().getNavigationHandler();
+
+			cNav.performNavigation("myAccount.xhtml");
+		}
+	}//redirectToAuth()
+	
+	public void initCV(ComponentSystemEvent event) {
+		if(cv == null || auth.getConnectedUser().getCv() == null)
+			newCv();
+	}//redirectToAuth()
 	
 }//CvController

@@ -33,5 +33,11 @@
 
 	</managed-bean>
 
+ 	<application>
+		<message-bundle>
+			fr.amu.univ.cveditor.controllers.MyMessage
+		</message-bundle>
+     </application>
+
 </faces-config>
 

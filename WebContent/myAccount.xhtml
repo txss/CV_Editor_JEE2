@@ -37,14 +37,14 @@
 				<p>Email : #{p.email}</p>
 			
 				<c:if test='#{p.webSite ne ""}'>
-					<p>Site web : <a href="#{p.webSite}">#{p.webSite} </a>
+					<p>Site web : <a target="_blank" href="#{p.webSite}">#{p.webSite} </a>
 					</p>
 				</c:if>
 				
 				<c:if test='#{p.webSite eq ""}'>
 					<p> <h:inputText id="website" value="#{p.webSite}"/>
 						<h:commandButton value="Ajouter un site internet">
-							<f:ajax execute="@form" listener="#{auth.listener}" render="@form"/>
+							<f:ajax execute="@form editPerson_form" listener="#{auth.listener}" render="@form"/>
 						</h:commandButton>
 					</p>
 				</c:if>
@@ -53,7 +53,7 @@
 			
 			<div id="editForm" hidden="true">
 				<f:view>
-					<h:form>
+					<h:form id="editPerson_form">
 						<h:panelGrid columns="2">
 							<p:outputLabel for="firstName" value="Nom :" />
 							<p:inputText id="firstName" value="#{p.firstName}" />
@@ -69,7 +69,7 @@
 							<p:inputText id="email" value="#{p.email}" />
 		
 							<p:outputLabel for="website" value="Site internet :" />
-							<h:inputText id="website" value="#{p.webSite}" />
+							<p:inputText id="website" value="#{p.webSite}" />
 						</h:panelGrid>
 						
 						<h:commandButton value="Enregistrer">
@@ -81,7 +81,7 @@
 				</f:view>
 			</div>
 
-			<c:if test="#{p.cv ne null}">
+			<c:if test="#{auth.isCv()}">
 				<f:view>
 					<h:form>
 						<h:commandLink action="#{cv.show(auth.connectedUser.cv)}">Voir mon CV <span
@@ -91,7 +91,7 @@
 				</f:view>
 			</c:if>
 			
-			<c:if test="#{p.cv eq null}">
+			<c:if test="#{auth.isCv() eq false}">
 				<h:form>
 					<h:commandLink action="#{cv.newCv()}" value="Créer votre CV" />
 				</h:form>

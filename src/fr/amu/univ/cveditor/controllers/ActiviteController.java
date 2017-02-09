@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ComponentSystemEvent;
 
 import fr.amu.univ.cveditor.entities.Activite;
 
@@ -119,5 +120,10 @@ public class ActiviteController implements Serializable {
 		remove(activite.getId());
 		newActivite();
 	}//removeAct()
+	
+	public void initAct(ComponentSystemEvent event) {
+		if(activite == null)
+			newActivite();
+	}//redirectToAuth()
 
 }//ActiviteController

@@ -24,7 +24,7 @@ public class Navigation implements Serializable {
 	}//signIn()
 
 	public String account() {
-		return "myAccount";
+		return "myAccount?faces-redirect=true";
 	}//account()
 
 	public String showCV() {
@@ -41,6 +41,10 @@ public class Navigation implements Serializable {
 	
 	public String editPerson() {
 		return "editPerson";
+	}//showPerson()
+	
+	public String listCv() {
+		return "listCV";
 	}//showPerson()
 
 }//Navigation

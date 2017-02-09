@@ -8,6 +8,10 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+	<f:event listener="#{auth.redirectToAccount}" type="preRenderView" />
+</f:metadata>
+
 <h:body>
 	<ui:composition template="/template/mylayout.xhtml">
 		<ui:define name="title">Cv Editor Sing in</ui:define>

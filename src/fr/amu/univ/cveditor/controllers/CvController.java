@@ -57,6 +57,11 @@ public class CvController implements Serializable {
 		return nav.showCV();
 	}//show()
 	
+	public String show(Integer id) {
+		cv = cvm.find(id);
+		return nav.showCV();
+	}//show()
+	
 	public String edit() {
 		cv = cvm.find(auth.getConnectedUser().getCv().getId());
 		return nav.editCv();
@@ -103,7 +108,8 @@ public class CvController implements Serializable {
 	}//redirectToAuth()
 	
 	public void initCV(ComponentSystemEvent event) {
-		if(cv == null || auth.getConnectedUser().getCv() == null)
+		if(cv == null || 
+				(auth.getConnectedUser() != null && auth.getConnectedUser().getCv() == null))
 			newCv();
 	}//redirectToAuth()
 	

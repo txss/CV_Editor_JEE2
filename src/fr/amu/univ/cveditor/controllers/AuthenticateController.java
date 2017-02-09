@@ -56,6 +56,11 @@ public class AuthenticateController implements Serializable {
 		return um.getUser() != null;
 	}//isConnected()
 	
+	public boolean hasCv(){
+		return (um.getUser() != null && um.getUser().getCv() != null) ? 
+				true : false;
+	}//isCv()
+	
 	public Person getConnectedUser() {
 		return um.getUser();
 	}//getConnectedUser()
@@ -88,14 +93,22 @@ public class AuthenticateController implements Serializable {
 		}
 	}//redirectToAuth()
 	
+	public void redirectToAccount(ComponentSystemEvent event) {
+		if(isConnected()) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			ConfigurableNavigationHandler cNav
+			= (ConfigurableNavigationHandler)
+			fc.getApplication().getNavigationHandler();
+
+			cNav.performNavigation("myAccount.xhtml");
+		}
+	}//redirectToAuth()
+	
 	public void listener(AjaxBehaviorEvent event) {
 		updateConnectedUser();
 		RequestContext requestContext = RequestContext.getCurrentInstance();  
 		requestContext.execute("$( '#editForm' ).hide()");
 	}//listener()
-	
-	public boolean isCv(){
-		return um.getUser().getCv() != null ? true : false;
-	}//isCv()
+
 	
 }//AuthentificationController()

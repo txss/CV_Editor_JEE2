@@ -44,7 +44,7 @@ public class PersonManager {
 
 	/* Members Methods */
 	public List<Person> listAll() {
-		return em.createQuery("SELECT * FROM \"PERSONS\"", Person.class).getResultList();
+		return em.createQuery("SELECT p FROM Person p", Person.class).getResultList();
 	}//listAll()
 
 	public void create(Person p) throws BadPerson {

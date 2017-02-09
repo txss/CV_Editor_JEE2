@@ -31,7 +31,7 @@ public class CvManager {
 
 	/* Members Methods */
 	public List<Cv> listAll() {
-		return em.createQuery("SELECT * FROM \"CV\"", Cv.class).getResultList();
+		return em.createQuery("SELECT c FROM Cv c", Cv.class).getResultList();
 	}//listAll()
 
 	public void store(Cv cv) {

@@ -51,5 +51,4 @@ public class ConnectedUserManager {
 		return pm.remove(p.getEmail());
 	}//removeUser()
 	
-	
 }//ConnectedUserManager()

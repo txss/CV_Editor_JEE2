@@ -25,9 +25,7 @@
          			
          			<div class="page-header">
 						<h1><h:outputText value="Edition de votre CV" />
-							<h:form class="pull-right">
-								<h:commandButton action="#{cv.store}" value="Sauvegarder" class="btn-lg btn-success"/>
-							</h:form>	
+							
 						</h1>
 					</div>
          			
@@ -45,7 +43,7 @@
 									</p:inputText>
 									<h:message for="nameCV" style="color:red" />
 								</h:panelGrid>
-								<h:commandButton action="#{cv.store}" value="Enregistrer" />
+								<h:commandButton action="#{cv.store}" value="Sauvegarder" class="btn-lg btn-success pull-right"/>
 							</h:form>
 							
 							<h:form id="actForm">

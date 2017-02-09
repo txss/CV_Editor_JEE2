@@ -14,61 +14,83 @@
 		
 		<ui:define name="content">
 			<f:view>
-				<h1>
-					<h:outputText value="Inscription" />
-				</h1>
 				
-				<c:set var="p" value="#{person.person}"/>
-				<h:form>
-					
-					<h:panelGrid columns="3">
-						<h:outputLabel for="name">Nom : *</h:outputLabel>
-						<p:inputText id="name" value="#{p.name}" required="true"
-							requiredMessage="Le prènom est obligatoire, min 2 caractéres.">
-							<f:validateRequired />
-							<f:validateLength minimum="3" maximum="30" />
-						</p:inputText>
-						<h:message for="name" style="color:red" />
-					
-						<h:outputLabel for="firstName">Prénom : *</h:outputLabel>
-						<p:inputText id="firstName" value="#{p.firstName}" required="true" 
-							requiredMessage="Le nom est obligatoire, min 2 caractéres.">
-							<f:validateRequired />
-							<f:validateLength minimum="3" maximum="30" />
-						</p:inputText>
-						<h:message for="firstName" style="color:red" />
-						
-						<h:outputLabel for="email">Email : *</h:outputLabel>
-						<p:inputText id="email" value="#{p.email}" 
-							requiredMessage="L'email est obligatoire.">
-							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-							<f:validateRequired />
-						</p:inputText>
-						<h:message for="email" style="color:red" />
-						
-						<h:outputLabel for="webSite">Site web : </h:outputLabel>
-						<p:inputText id="website" value="#{p.webSite}" />
-						<h:message for="webSite" style="color:red" />
-						
-						<h:outputLabel for="birthdate">Date de naissance : *</h:outputLabel>
-						<p:inputMask id="birthdate" value="#{p.birthdate}" mask="99/99/9999"
-							requiredMessage="La date de naissance est obligatoire. (dd/mm/yyyy)" required="true">
-							<f:validateRequired/>
-						</p:inputMask>
-						<h:message for="birthdate" style="color:red" />
-						
-						<h:outputLabel for="feedback">Mot de passe :* </h:outputLabel>
-						<p:password id="feedback" value="#{p.password}" feedback="true" 
-							required="true" requiredMessage="Le mot de passe est obligatoire">
-							<f:validateRequired />
-						</p:password>
-						<h:message for="feedback" style="color:red" />
-						
-					</h:panelGrid>
-
-					<h:commandButton action="#{person.storePerson}" value="S'inscrire" />
-					
-				</h:form>
+				<div class="row">
+         			<div class="col-md-4 col-md-offset-4">
+         		
+			         	<div class="panel panel-info">
+			         		<div class="panel-heading"><p>Inscrivez vous pour éditer votre CV en ligne.</p></div>
+			         		
+							<h1>
+								<h:outputText value="Inscription" classe="title"/>
+							</h1>
+							<div  id="login_container">
+								<c:set var="p" value="#{person.person}"/>
+								<h:form>
+									
+									<h:panelGrid columns="3">
+										<h:outputLabel for="name">Nom : *</h:outputLabel>
+										<p:inputText id="name" value="#{p.name}" required="true"
+											requiredMessage="Le prènom est obligatoire, min 2 caractéres.">
+											<f:validateRequired />
+											<f:validateLength minimum="3" maximum="30" />
+										</p:inputText>
+										<h:message for="name" style="color:red" />
+									
+										<h:outputLabel for="firstName">Prénom : *</h:outputLabel>
+										<p:inputText id="firstName" value="#{p.firstName}" required="true" 
+											requiredMessage="Le nom est obligatoire, min 2 caractéres.">
+											<f:validateRequired />
+											<f:validateLength minimum="3" maximum="30" />
+										</p:inputText>
+										<h:message for="firstName" style="color:red" />
+										
+										<h:outputLabel for="email">Email : *</h:outputLabel>
+										<p:inputText id="email" value="#{p.email}" 
+											requiredMessage="L'email est obligatoire.">
+											<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+											<f:validateRequired />
+										</p:inputText>
+										<h:message for="email" style="color:red" />
+										
+										<h:outputLabel for="webSite">Site web : </h:outputLabel>
+										<p:inputText id="website" value="#{p.webSite}" />
+										<h:message for="webSite" style="color:red" />
+										
+										<h:outputLabel for="birthdate">Date de naissance : *</h:outputLabel>
+										<p:inputMask id="birthdate" value="#{p.birthdate}" mask="99/99/9999"
+											requiredMessage="La date de naissance est obligatoire. (dd/mm/yyyy)" required="true">
+											<f:validateRequired/>
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</p:inputMask>
+										<h:message for="birthdate" style="color:red" />
+										
+										<h:outputLabel for="pwd">Mot de passe :* </h:outputLabel>
+										<p:password id="pwd" value="#{p.password}" feedback="true" match="confirmation" 
+											required="true" requiredMessage="Le mot de passe est obligatoire">
+											<f:validateRequired />
+										</p:password>
+										<h:message for="pwd" style="color:red" />
+										
+										<h:outputLabel for="confirmation" value="Confirmer : *" />
+				        				<p:password id="confirmation" label="confirmer" required="true"
+				        					requiredMessage="La confirmation du mot de passe est obligatoire">
+											<f:validateRequired />
+										</p:password>
+										<h:message for="confirmation" style="color:red" />
+										
+									</h:panelGrid>
+									<div>
+										<h:commandButton action="#{person.storePerson}" value="S'inscrire"  class="btn btn-success"/>
+									</div>
+									
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
 				
 			</f:view>
 		</ui:define>

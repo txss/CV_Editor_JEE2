@@ -18,100 +18,105 @@
 
 		<ui:define name="content">
 			
-			<h1>
-				<h:outputText value="Mon profil" />
-				<a href="javascript:$( '#editForm' ).show();"><span class="glyphicon glyphicon-pencil"></span></a>
-			</h1>
-			
-
-			<c:set var="p" value="#{auth.connectedUser}" />
-			<f:view>
-			<h:form id="person_form">
-				<p>Bonjour #{p.firstName} #{p.name}</p>
-				<h4>Vos informations personnelles </h4>
+			<div class="col-md-10 col-md-offset-1">
+				<c:set var="p" value="#{auth.connectedUser}" />
+				<div class="page-header">
+					<h1>Bonjour <h:outputText value="#{p.name}"/></h1>
+				</div>
 				
-				<p>Date de naissance :
-					<h:outputText id="bdate" value="#{p.birthdate} " />
-				</p>
-					
-				<p>Email : #{p.email}</p>
-			
-				<c:if test='#{p.webSite ne ""}'>
-					<p>Site web : <a target="_blank" href="#{p.webSite}">#{p.webSite} </a>
-					</p>
+				<f:view>
+					<h:form id="person_form">
+						<h3>Vos informations personnelles <small><a href="javascript:$( '#editForm' ).show();"><span class="glyphicon glyphicon-pencil"></span></a></small></h3>
+						
+						<p:outputLabel value="Prènom: " />
+						<h:outputText value=" #{p.name}"/><br/>
+						
+						<p:outputLabel value="Nom: " />
+						<h:outputText value=" #{p.firstName}"/><br/>
+						
+						<p:outputLabel value="Date de naissance: " />
+						<h:outputText value=" #{p.birthdate} " /><br/>
+						
+						<p:outputLabel value="Email: " />
+						<h:outputText value=" #{p.email}" /><br/>
+						
+						<c:if test='#{p.webSite ne ""}'>
+							<p:outputLabel value="Site web: " />
+							<a target="_blank" href="#{p.webSite}"><h:outputText value=" #{p.webSite}" /></a><br/>
+						</c:if>
+						
+					</h:form>
+				</f:view>
+				
+				<div id="editForm" hidden="true">
+					<f:view>
+						<h:form id="editPerson_form">
+							<h:panelGrid columns="3">
+								<p:outputLabel for="firstName" value="Nom :" />
+								<p:inputText id="firstName" value="#{p.firstName}"
+									requiredMessage="Le nom est obligatoire, min 2 caractéres.">
+									<f:validateRequired />
+									<f:validateLength minimum="2"/>
+								</p:inputText>
+								<h:message for="firstName" style="color:red" />
+								
+								<p:outputLabel for="name" value="Prènom:" />
+								<p:inputText id="name" value="#{p.name}" 
+									requiredMessage="Le prènom est obligatoire, min 2 caractéres.">
+									<f:validateRequired />
+									<f:validateLength minimum="2"/>
+								</p:inputText>
+								<h:message for="name" style="color:red" />
+						
+								<p:outputLabel for="birthdate" value="Date de naissance :" />
+								<p:inputMask id="birthdate" value="#{p.birthdate}" mask="99/99/9999"
+									requiredMessage="La date de naissance est obligatoire.">
+									<f:validateRequired />
+								</p:inputMask>
+								<h:message for="birthdate" style="color:red" />
+								
+								<p:outputLabel for="email" value="Email :" />
+								<p:inputText id="email" value="#{p.email}" 
+									requiredMessage="L'email est obligatoire.">
+									<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+									<f:validateRequired />
+								</p:inputText>
+								<h:message for="email" style="color:red" />
+								
+								<p:outputLabel for="website" value="Site internet :" />
+								<p:inputText id="website" value="#{p.webSite}" />
+								<h:message for="website" style="color:red" />
+								
+							</h:panelGrid>
+							
+							<h:commandButton value="Enregistrer" class="btn btn-primary">
+								<f:ajax execute="@form" listener="#{auth.listener}"
+								render="@form person_form" />
+							</h:commandButton>
+							
+						</h:form>
+					</f:view>
+				</div>
+	
+				<c:if test="#{auth.isCv()}">
+					<f:view>
+						<h:form>
+	 						<h:commandLink action="#{cv.show()}" class="btn btn-primary">Voir mon CV <span
+									class="glyphicon glyphicon-eye-open"/>
+							</h:commandLink>
+						</h:form>
+					</f:view>
 				</c:if>
 				
-			</h:form>	
-			</f:view>
-			
-			<div id="editForm" hidden="true">
-				<f:view>
-					<h:form id="editPerson_form">
-						<h:panelGrid columns="3">
-							<p:outputLabel for="firstName" value="Nom :" />
-							<p:inputText id="firstName" value="#{p.firstName}"
-								requiredMessage="Le nom est obligatoire, min 2 caractéres.">
-								<f:validateRequired />
-								<f:validateLength minimum="2"/>
-							</p:inputText>
-							<h:message for="firstName" style="color:red" />
-							
-							<p:outputLabel for="name" value="Prènom:" />
-							<p:inputText id="name" value="#{p.name}" 
-								requiredMessage="Le prènom est obligatoire, min 2 caractéres.">
-								<f:validateRequired />
-								<f:validateLength minimum="2"/>
-							</p:inputText>
-							<h:message for="name" style="color:red" />
-					
-							<p:outputLabel for="birthdate" value="Date de naissance :" />
-							<p:inputMask id="birthdate" value="#{p.birthdate}" mask="99/99/9999"
-								requiredMessage="La date de naissance est obligatoire.">
-								<f:validateRequired />
-							</p:inputMask>
-							<h:message for="birthdate" style="color:red" />
-							
-							<p:outputLabel for="email" value="Email :" />
-							<p:inputText id="email" value="#{p.email}" 
-								requiredMessage="L'email est obligatoire.">
-								<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-								<f:validateRequired />
-							</p:inputText>
-							<h:message for="email" style="color:red" />
-							
-							<p:outputLabel for="website" value="Site internet :" />
-							<p:inputText id="website" value="#{p.webSite}" />
-							<h:message for="website" style="color:red" />
-							
-						</h:panelGrid>
-						
-						<h:commandButton value="Enregistrer">
-							<f:ajax execute="@form" listener="#{auth.listener}"
-							render="@form person_form" />
-						</h:commandButton>
-						
-					</h:form>
-				</f:view>
-			</div>
-
-			<c:if test="#{auth.isCv()}">
-				<f:view>
+				<c:if test="#{auth.isCv() eq false}">
 					<h:form>
- 						<h:commandLink action="#{cv.show()}">Voir mon CV <span
-								class="glyphicon glyphicon-eye-open" />
-						</h:commandLink>
+						<h:commandLink action="#{cv.newCv()}" value="Créer votre CV" class="btn btn-primary"/>
 					</h:form>
-				</f:view>
-			</c:if>
+				</c:if>
 			
-			<c:if test="#{auth.isCv() eq false}">
-				<h:form>
-					<h:commandLink action="#{cv.newCv()}" value="Créer votre CV" />
-				</h:form>
-			</c:if>
+			</div>
 			
 		</ui:define>
-
 	</ui:composition>
 </h:body>
 </html>
